@@ -28,12 +28,7 @@ public class Registration extends AppCompatActivity {
     Spinner spinner;
     FirebaseAuth app_auth;
 
-    String item;
-    String email;
-    String pass;
-    String fullName;
-    String rePass;
-    String schoolId;
+    String userType, email, pass, fullName, rePass, schoolId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +47,11 @@ public class Registration extends AppCompatActivity {
         app_auth = FirebaseAuth.getInstance();
         DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
+        if(app_auth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), Student_Homepage.class));
+            finish();
+        }
+
         //for Spinner
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -68,7 +68,7 @@ public class Registration extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                item = spinner.getSelectedItem().toString();
+                userType = spinner.getSelectedItem().toString();
                 email = et_email.getText().toString().trim();
                 fullName = et_fullName.getText().toString().trim();
                 pass = et_pass.getText().toString().trim();
@@ -86,7 +86,7 @@ public class Registration extends AppCompatActivity {
                     et_rePass.setError("Password don't match");
                 }else{
                     //if whatever user selected then proceed to store user data to different user type.
-                    if(item.equals("Student")){
+                    if(userType.equals("Student")){
                         app_auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -109,7 +109,7 @@ public class Registration extends AppCompatActivity {
                                 }
                             }
                         });
-                    }else if(item.equals("Teacher")){
+                    }else if(userType.equals("Teacher")){
                         app_auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
