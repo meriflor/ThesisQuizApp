@@ -46,9 +46,6 @@ public class SignIn extends AppCompatActivity {
         btn_logIn = findViewById(R.id.btn_login);
         tv_register = findViewById(R.id.tv_register);
 
-        app_Auth = FirebaseAuth.getInstance();
-        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
-
         //if user don't have an account yet
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,30 +59,37 @@ public class SignIn extends AppCompatActivity {
         btn_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = et_email.getText().toString();
-                pass = et_pass.getText().toString();
 
-                if(TextUtils.isEmpty(email)){
+                if(et_email.getText().toString().isEmpty()){
                     et_email.setError("Please enter your email.");
                     return;
-                }if(TextUtils.isEmpty(pass)){
+                }if(et_pass.getText().toString().isEmpty()){
                     et_pass.setError("Please enter your password");
                     return;
+                }else{
+                    logInUser();
                 }
+            }
+        });
+    }
 
-                //authentication
-                app_Auth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(SignIn.this, "Logged In", Toast.LENGTH_SHORT).show();
-                        checkUserType();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    public void logInUser(){
+        app_Auth = FirebaseAuth.getInstance();
+        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
+        email = et_email.getText().toString();
+        pass = et_pass.getText().toString();
+
+        //authentication
+        app_Auth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(SignIn.this, "Logged In", Toast.LENGTH_SHORT).show();
+                checkUserType();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -97,9 +101,6 @@ public class SignIn extends AppCompatActivity {
         userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
-
                 if(documentSnapshot.getString("userType").equals("Teacher")) {
                     startActivity(new Intent(SignIn.this, Teacher_Homepage.class));
                     finish();
