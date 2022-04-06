@@ -28,7 +28,6 @@ public class IntroPage extends AppCompatActivity {
         DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

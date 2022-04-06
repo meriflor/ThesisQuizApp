@@ -21,7 +21,7 @@ public class DbQuery {
         userData.put("EMAIL", email);
         userData.put("FULL_NAME", fullName);
         userData.put("SCHOOL_ID", schoolId);
-        userData.put("isStudent", "1");
+        userData.put("userType", "Student");
 
         userDoc.set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -39,7 +39,7 @@ public class DbQuery {
         userData.put("EMAIL", email);
         userData.put("FULL_NAME", fullName);
         userData.put("SCHOOL_ID", schoolId);
-        userData.put("isTeacher", "1");
+        userData.put("userType", "Teacher");
 
         userDoc.set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
