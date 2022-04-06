@@ -12,23 +12,19 @@
         <activity
             android:name=".Student_Homepage"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
             android:name=".Teacher_Homepage"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
-            android:name=".SignIn"
+            android:name=".activities.SignIn"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar"  />
         <activity
-            android:name=".Registration"
+            android:name=".activities.Registration"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
             android:name=".IntroPage"
             android:exported="true"

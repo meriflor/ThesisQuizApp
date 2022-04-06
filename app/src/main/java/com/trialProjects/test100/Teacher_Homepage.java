@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.trialProjects.test100.activities.Registration;
 
 public class Teacher_Homepage extends AppCompatActivity {
 
@@ -14,7 +15,6 @@ public class Teacher_Homepage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_homepage);
-
     }
 
     public void LogOut(View view) {

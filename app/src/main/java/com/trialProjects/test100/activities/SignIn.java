@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,18 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.DbQuery;
+import com.trialProjects.test100.R;
+import com.trialProjects.test100.Student_Homepage;
+import com.trialProjects.test100.Teacher_Homepage;
 
 public class SignIn extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class SignIn extends AppCompatActivity {
         app_Auth = FirebaseAuth.getInstance();
         app_fireStore = FirebaseFirestore.getInstance();
 
-        //if user don't have account yet
+        //if user don't have an account yet
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,9 +77,8 @@ public class SignIn extends AppCompatActivity {
                 app_Auth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        FirebaseUser userID = app_Auth.getCurrentUser();
                         Toast.makeText(SignIn.this, "Logged In", Toast.LENGTH_SHORT).show();
-                        checkUserType(userID.getUid());
+                        checkUserType();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -91,20 +90,21 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-    private void checkUserType(String userID) {
-
-        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID);
+    //to check if the user is a teacher or a student
+    private void checkUserType() {
+        FirebaseUser userID = app_Auth.getCurrentUser();
+        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
         userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
 
-                if(documentSnapshot.getString("isTeacher") != null) {
+                if(documentSnapshot.getString("userType").equals("Teacher")) {
                     startActivity(new Intent(SignIn.this, Teacher_Homepage.class));
                     finish();
                 }
-                else if(documentSnapshot.getString("isStudent") != null) {
+                else if(documentSnapshot.getString("userType").equals("Student")) {
                     startActivity(new Intent(SignIn.this, Student_Homepage.class));
                     finish();
                 }

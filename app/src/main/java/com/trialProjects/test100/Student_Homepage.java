@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.trialProjects.test100.activities.Registration;
 
 public class Student_Homepage extends AppCompatActivity {
 

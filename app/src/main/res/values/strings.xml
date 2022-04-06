@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test100</string>
+    <string name="app_name">TestChillApp</string>
     <string-array name="userType">
         <item>Teacher</item>
         <item>Student</item>

@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.trialProjects.test100.DbQuery;
+import com.trialProjects.test100.MyCompleteListener;
+import com.trialProjects.test100.R;
+import com.trialProjects.test100.Student_Homepage;
+import com.trialProjects.test100.Teacher_Homepage;
 
 public class Registration extends AppCompatActivity {
 
@@ -47,16 +52,17 @@ public class Registration extends AppCompatActivity {
         app_auth = FirebaseAuth.getInstance();
         DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
+        //if there is a logged in user, it will be directed to its homepage
         if(app_auth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), Student_Homepage.class));
             finish();
         }
 
-        //for Spinner
+        //for Spinner-- list
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        //for already have new account - directed to login Page
+        //for already have an account - directed to login Page
         tv_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,4 +143,7 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
