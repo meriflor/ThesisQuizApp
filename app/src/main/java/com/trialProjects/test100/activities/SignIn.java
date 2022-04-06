@@ -47,7 +47,7 @@ public class SignIn extends AppCompatActivity {
         tv_register = findViewById(R.id.tv_register);
 
         app_Auth = FirebaseAuth.getInstance();
-        app_fireStore = FirebaseFirestore.getInstance();
+        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
         //if user don't have an account yet
         tv_register.setOnClickListener(new View.OnClickListener() {

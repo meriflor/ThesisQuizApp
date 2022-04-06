@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,9 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.DbQuery;
 import com.trialProjects.test100.MyCompleteListener;
@@ -52,11 +57,7 @@ public class Registration extends AppCompatActivity {
         app_auth = FirebaseAuth.getInstance();
         DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
-        //if there is a logged in user, it will be directed to its homepage
-        if(app_auth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), Student_Homepage.class));
-            finish();
-        }
+
 
         //for Spinner-- list
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
@@ -144,6 +145,23 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-
+    private void signedInUser() {
+        FirebaseUser userID = app_auth.getCurrentUser();
+        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
+        userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
+                if(documentSnapshot.getString("userType").equals("Teacher")) {
+                    startActivity(new Intent(Registration.this, Teacher_Homepage.class));
+                    finish();
+                }
+                else if(documentSnapshot.getString("userType").equals("Student")) {
+                    startActivity(new Intent(Registration.this, Student_Homepage.class));
+                    finish();
+                }
+            }
+        });
+    }
 
 }
