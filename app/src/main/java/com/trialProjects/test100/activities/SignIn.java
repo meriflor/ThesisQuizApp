@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +15,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.DbQuery;
+import com.trialProjects.test100.Homepage;
 import com.trialProjects.test100.R;
-import com.trialProjects.test100.Student_Homepage;
-import com.trialProjects.test100.Teacher_Homepage;
 
 public class SignIn extends AppCompatActivity {
 
@@ -84,7 +78,8 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(SignIn.this, "Logged In", Toast.LENGTH_SHORT).show();
-                checkUserType();
+                //checkUserType();
+                startActivity(new Intent(getApplicationContext(), Homepage.class));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -95,21 +90,21 @@ public class SignIn extends AppCompatActivity {
     }
 
     //to check if the user is a teacher or a student
-    private void checkUserType() {
+    /*private void checkUserType() {
         FirebaseUser userID = app_Auth.getCurrentUser();
         DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
         userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    startActivity(new Intent(SignIn.this, Teacher_Homepage.class));
+                    startActivity(new Intent(SignIn.this, Homepage.class));
                     finish();
                 }
                 else if(documentSnapshot.getString("userType").equals("Student")) {
-                    startActivity(new Intent(SignIn.this, Student_Homepage.class));
+                    startActivity(new Intent(SignIn.this, Homepage.class));
                     finish();
                 }
             }
         });
-    }
+    }*/
 }

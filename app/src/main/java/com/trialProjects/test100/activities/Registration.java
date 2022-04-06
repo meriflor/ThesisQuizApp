@@ -25,10 +25,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.DbQuery;
+import com.trialProjects.test100.Homepage;
 import com.trialProjects.test100.MyCompleteListener;
 import com.trialProjects.test100.R;
-import com.trialProjects.test100.Student_Homepage;
-import com.trialProjects.test100.Teacher_Homepage;
 
 public class Registration extends AppCompatActivity {
 
@@ -103,7 +102,7 @@ public class Registration extends AppCompatActivity {
                                     DbQuery.createStudentData(email, fullName, schoolId, new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {
-                                            startActivity(new Intent(Registration.this, Student_Homepage.class));
+                                            startActivity(new Intent(Registration.this, Homepage.class));
                                             finish();
                                         }
                                         @Override
@@ -126,7 +125,7 @@ public class Registration extends AppCompatActivity {
                                     DbQuery.createTeacherData(email, fullName, schoolId, new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {
-                                            startActivity(new Intent(Registration.this, Teacher_Homepage.class));
+                                            startActivity(new Intent(Registration.this, Homepage.class));
                                             finish();
                                         }
                                         @Override
@@ -153,11 +152,11 @@ public class Registration extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
                 if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    startActivity(new Intent(Registration.this, Teacher_Homepage.class));
+                    startActivity(new Intent(Registration.this, Homepage.class));
                     finish();
                 }
                 else if(documentSnapshot.getString("userType").equals("Student")) {
-                    startActivity(new Intent(Registration.this, Student_Homepage.class));
+                    startActivity(new Intent(Registration.this, Homepage.class));
                     finish();
                 }
             }

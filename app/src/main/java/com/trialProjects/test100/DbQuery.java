@@ -29,7 +29,6 @@ public class DbQuery {
                 completeListener.onSuccess();
             }
         });
-
     }
 
     public static void createTeacherData(String email, String fullName, String schoolId, MyCompleteListener completeListener){

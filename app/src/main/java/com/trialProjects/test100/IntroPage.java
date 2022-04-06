@@ -27,7 +27,6 @@ public class IntroPage extends AppCompatActivity {
         app_auth = FirebaseAuth.getInstance();
         DbQuery.app_fireStore = FirebaseFirestore.getInstance();
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -51,11 +50,11 @@ public class IntroPage extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
                 if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    startActivity(new Intent(IntroPage.this, Teacher_Homepage.class));
+                    startActivity(new Intent(IntroPage.this, Homepage.class));
                     finish();
                 }
                 else if(documentSnapshot.getString("userType").equals("Student")) {
-                    startActivity(new Intent(IntroPage.this, Student_Homepage.class));
+                    startActivity(new Intent(IntroPage.this, Homepage.class));
                     finish();
                 }
             }
