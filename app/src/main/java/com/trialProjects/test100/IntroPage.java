@@ -5,19 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.activities.Registration;
 
 public class IntroPage extends AppCompatActivity {
 
     FirebaseAuth app_auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +25,7 @@ public class IntroPage extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //if there is a logged in user, it will be directed to its homepage
+                //if there is a logged in user, it will be directed to the homepage
                 if(app_auth.getCurrentUser() != null){
                     signedInUser();
                 }else{
@@ -42,7 +37,15 @@ public class IntroPage extends AppCompatActivity {
         }, 3000);
     }
 
-    private void signedInUser() {
+    public void signedInUser(){
+
+        startActivity(new Intent(getApplicationContext(), Homepage.class));
+        finish();
+
+    }
+
+
+    /*private void signedInUser() {
         FirebaseUser userID = app_auth.getCurrentUser();
         DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
         userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -59,5 +62,5 @@ public class IntroPage extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 }
