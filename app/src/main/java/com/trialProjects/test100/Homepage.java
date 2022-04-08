@@ -3,7 +3,6 @@ package com.trialProjects.test100;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,9 +11,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.activities.Registration;
 
@@ -74,8 +76,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                         new FragmentProfile()).commit();
                 break;
             case R.id.nav_classes:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentClasses()).commit();
+                checkUserType();
                 break;
             case R.id.nav_logOut:
                 logOut();
@@ -89,5 +90,23 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), Registration.class));
         finish();
+    }
+
+    private void checkUserType() {
+        FirebaseUser userID = app_auth.getCurrentUser();
+        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
+        userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.getString("userType").equals("Teacher")) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new FragmentClasses_Teacher()).commit();
+                }
+                else if(documentSnapshot.getString("userType").equals("Student")) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new FragmentClasses_Student()).commit();
+                }
+            }
+        });
     }
 }

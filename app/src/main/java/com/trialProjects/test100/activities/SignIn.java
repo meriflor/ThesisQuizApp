@@ -69,7 +69,6 @@ public class SignIn extends AppCompatActivity {
 
     public void logInUser(){
         app_Auth = FirebaseAuth.getInstance();
-        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
         email = et_email.getText().toString();
         pass = et_pass.getText().toString();
 
