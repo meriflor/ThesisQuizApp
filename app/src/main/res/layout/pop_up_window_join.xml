@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
 
     <ImageView
         android:id="@+id/classes_image"
@@ -21,7 +22,6 @@
         android:id="@+id/et_class_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/darkBlueGreen"
         android:hint="Code"
         android:singleLine="true"
@@ -30,6 +30,7 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_join"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classes_image" />
 
     <Button
@@ -42,6 +43,7 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_cancel"
         app:layout_constraintTop_toBottomOf="@+id/et_class_code" />
 
     <Button

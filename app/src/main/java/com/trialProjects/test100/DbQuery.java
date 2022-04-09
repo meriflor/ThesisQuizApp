@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,19 +59,14 @@ public class DbQuery {
 
     public static void createClass(String name, String subject, String section, String teacher){
 
-        DocumentReference classDoc = app_fireStore.collection("CLASS").document();
+        String classID = app_fireStore.collection("CLASS").document().getId();
+        CollectionReference classDoc = app_fireStore.collection("CLASS");
         Map<String, Object> classData = new HashMap<>();
         classData.put("class_name", name);
         classData.put("class_subject", subject);
         classData.put("class_section", section);
         classData.put("class_teacher", teacher);
 
-        classDoc.set(classData).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-
-            }
-        });
     }
 
 }

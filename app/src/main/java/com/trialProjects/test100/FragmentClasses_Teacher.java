@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,28 +13,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class FragmentClasses_Teacher extends Fragment {
 
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog dialog;
-    EditText className, classSection;
-    Button btn_create, btn_cancel;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private EditText className, classSection;
+    private Button btn_create, btn_cancel;
 
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
 
-    FirebaseAuth app_auth;
-    FirebaseFirestore app_fireStore;
-    FirebaseUser currentUser;
+    private FirebaseAuth app_auth;
+    private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
+    private FirebaseUser currentUser;
+    private CollectionReference classesRef = app_fireStore.collection("CLASSES");
+    private ClassesAdapter adapter;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_classes_teacher, container, false);
+        view = inflater.inflate(R.layout.fragment_classes_teacher, container, false);
 
         fab = view.findViewById(R.id.fab);
 
@@ -43,10 +51,39 @@ public class FragmentClasses_Teacher extends Fragment {
             }
         });
 
+        setUpRecyclerView();
+
         return view;
     }
 
-    public void createClass(){
+    private void setUpRecyclerView(){
+        Query classList = classesRef.orderBy("className", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Classes> options = new FirestoreRecyclerOptions.Builder<Classes>().setQuery(classList, Classes.class).build();
+
+        adapter = new ClassesAdapter(options);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    private void createClass(){
         dialogBuilder = new AlertDialog.Builder(getContext());
         View createClassView = getLayoutInflater().inflate(R.layout.pop_up_window_create, null);
 
