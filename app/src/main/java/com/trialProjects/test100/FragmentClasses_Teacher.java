@@ -1,5 +1,6 @@
 package com.trialProjects.test100;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,12 +22,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.activities.Registration;
 
 public class FragmentClasses_Teacher extends Fragment {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private EditText className, classSection;
+    private EditText className, classSection,accessCode;
     private Button btn_create, btn_cancel;
 
     private FloatingActionButton fab;
@@ -36,6 +39,7 @@ public class FragmentClasses_Teacher extends Fragment {
     private CollectionReference classesRef = app_fireStore.collection("CLASSES");
     private ClassesAdapter adapter;
     private View view;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,6 +104,17 @@ public class FragmentClasses_Teacher extends Fragment {
             @Override
             public void onClick(View v) {
 
+                String name= className.getText().toString().trim();
+                String section= classSection.getText().toString().trim();
+
+                if(name.isEmpty()||section.isEmpty())
+                {
+                    Toast.makeText(getContext(),"Please enter the class name and section",Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+                    addNewClasses(name,section);
+                }
+
             }
         });
 
@@ -109,5 +124,19 @@ public class FragmentClasses_Teacher extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
+
+    private void addNewClasses(String className, String classSection) {
+
+       DbQuery.createClass(className, classSection, new MyCompleteListener() {
+           @Override
+           public void onSuccess() {
+               dialog.dismiss();
+           }
+           @Override
+           public void onFailure() {
+               Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+           }
+       });
     }
 }

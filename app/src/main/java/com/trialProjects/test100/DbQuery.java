@@ -1,11 +1,13 @@
 package com.trialProjects.test100;
 
+import android.util.ArrayMap;
 import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,15 +59,20 @@ public class DbQuery {
         });
     }
 
-    public static void createClass(String name, String subject, String section, String teacher){
+    public static void createClass(String name, String section, MyCompleteListener completeListener) {
 
-        String classID = app_fireStore.collection("CLASS").document().getId();
-        CollectionReference classDoc = app_fireStore.collection("CLASS");
-        Map<String, Object> classData = new HashMap<>();
-        classData.put("class_name", name);
-        classData.put("class_subject", subject);
-        classData.put("class_section", section);
-        classData.put("class_teacher", teacher);
+        String classID = app_fireStore.collection("CLASSES").document().getId();
+        Map<String, Object> classData = new ArrayMap<>();
+        classData.put("className", name);
+        classData.put("classSection", section);
+        classData.put("accessCode", classID);
+        app_fireStore.collection("CLASSES").document(classID).set(classData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        completeListener.onSuccess();
+                    }
+                });
 
     }
 
