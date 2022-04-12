@@ -22,6 +22,7 @@ import java.util.Map;
 public class DbQuery {
 
     public static FirebaseFirestore app_fireStore;
+    DocumentSnapshot lastAddedClass;
 
 
     public static void createStudentData(String email, String fullName, String schoolId, MyCompleteListener completeListener){
@@ -61,19 +62,27 @@ public class DbQuery {
 
     public static void createClass(String name, String section, MyCompleteListener completeListener) {
 
-        String classID = app_fireStore.collection("CLASSES").document().getId();
-        Map<String, Object> classData = new ArrayMap<>();
-        classData.put("className", name);
-        classData.put("classSection", section);
-        classData.put("accessCode", classID);
-        app_fireStore.collection("CLASSES").document(classID).set(classData)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        completeListener.onSuccess();
-                    }
-                });
+        String teacherID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference classRef = app_fireStore
+                .collection("CLASSES")
+                .document();
 
+        Classes classes = new Classes();
+        classes.setClassName(name);
+        classes.setClassID(classRef.getId());
+        classes.setTeacherID(teacherID);
+        classes.setClassSection(section);
+        classes.setAccessCode(classRef.getId());
+
+        classRef.set(classes).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    completeListener.onSuccess();
+                }else{
+                    completeListener.onFailure();
+                }
+            }
+        });
     }
-
 }

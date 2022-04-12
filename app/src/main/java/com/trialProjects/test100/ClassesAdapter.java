@@ -29,7 +29,6 @@ public class ClassesAdapter extends FirestoreRecyclerAdapter<Classes, ClassesAda
     @Override
     public ClassesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
-
         return new ClassesHolder(view);
     }
 

@@ -24,8 +24,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
     private DrawerLayout drawer;
     FirebaseAuth app_auth;
-    FirebaseFirestore app_fireStore;
-    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
