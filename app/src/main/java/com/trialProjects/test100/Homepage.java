@@ -59,7 +59,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         }else{
             super.onBackPressed();
         }
-
     }
 
     @Override

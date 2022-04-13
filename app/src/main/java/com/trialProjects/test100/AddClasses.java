@@ -1,14 +1,14 @@
 package com.trialProjects.test100;
 
-public class Classes {
+public class AddClasses {
 
     private String className, classSection, accessCode, teacherID, classID;
 
-    public Classes(){
+    public AddClasses(){
 
     }
 
-    public Classes(String className, String classSection, String accessCode, String teacherID, String classID){
+    public AddClasses(String className, String classSection, String accessCode, String teacherID, String classID){
         this.className = className;
         this.classSection = classSection;
         this.accessCode = accessCode;

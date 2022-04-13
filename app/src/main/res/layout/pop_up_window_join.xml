@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:layout_margin="30dp">
 
     <ImageView
         android:id="@+id/classes_image"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/darkBlueGreen"
         android:hint="Code"
+        android:minHeight="48dp"
         android:singleLine="true"
         android:textColor="@color/darkBlueGreen"
         android:textColorHint="@color/darkBlueGreen"
@@ -42,9 +43,10 @@
         android:text="Join"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_cancel"
-        app:layout_constraintTop_toBottomOf="@+id/et_class_code" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_class_code" />
 
     <Button
         android:id="@+id/btn_cancel"

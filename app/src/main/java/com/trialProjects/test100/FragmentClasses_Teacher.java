@@ -53,10 +53,10 @@ public class FragmentClasses_Teacher extends Fragment{
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
     private CollectionReference classesRef = app_fireStore.collection("CLASSES");
-    private ClassesAdapter adapter;
+    private AddClassesAdapter adapter;
     private View view;
     private DocumentSnapshot classDocSnapshot;
-    private ArrayList<Classes> listClasses = new ArrayList<>();
+    private ArrayList<AddClasses> listClasses = new ArrayList<>();
 
 
     @Override
@@ -91,27 +91,8 @@ public class FragmentClasses_Teacher extends Fragment{
                     .whereEqualTo("teacherID", FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .orderBy("className", Query.Direction.ASCENDING);
 
-
-        classQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document: task.getResult()){
-                        Classes classes = document.toObject(Classes.class);
-                        listClasses.add(classes);
-                    }
-                    if(task.getResult().size() != 0){
-                        classDocSnapshot = task.getResult().getDocuments().get(task.getResult().size() - 1);
-                    }
-                    adapter.notifyDataSetChanged();
-
-                }else{
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        FirestoreRecyclerOptions<Classes> options = new FirestoreRecyclerOptions.Builder<Classes>().setQuery(classQuery, Classes.class).build();
-        adapter = new ClassesAdapter(options);
+        FirestoreRecyclerOptions<AddClasses> options = new FirestoreRecyclerOptions.Builder<AddClasses>().setQuery(classQuery, AddClasses.class).build();
+        adapter = new AddClassesAdapter(options);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

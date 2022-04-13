@@ -1,20 +1,15 @@
 package com.trialProjects.test100;
 
-import android.util.ArrayMap;
-import android.util.Log;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.trialProjects.test100.activities.JoinClasses;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,12 +62,35 @@ public class DbQuery {
                 .collection("CLASSES")
                 .document();
 
-        Classes classes = new Classes();
+        AddClasses classes = new AddClasses();
         classes.setClassName(name);
         classes.setClassID(classRef.getId());
         classes.setTeacherID(teacherID);
         classes.setClassSection(section);
         classes.setAccessCode(classRef.getId());
+
+        classRef.set(classes).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    completeListener.onSuccess();
+                }else{
+                    completeListener.onFailure();
+                }
+            }
+        });
+    }
+
+    public static void joinClass(String accessCode, MyCompleteListener completeListener) {
+
+        String studentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference classRef = app_fireStore
+                .collection("Students")
+                .document();
+
+        JoinClasses classes = new JoinClasses();
+        classes.setStudentID(studentID);
+        //classes.setAccessCode(accessCode);
 
         classRef.set(classes).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

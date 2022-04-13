@@ -1,6 +1,6 @@
 package com.trialProjects.test100;
 
-
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.trialProjects.test100.activities.JoinClasses;
 
-public class ClassesAdapter extends FirestoreRecyclerAdapter<Classes, ClassesAdapter.ClassesHolder> {
+public class JoinClassAdapter extends FirestoreRecyclerAdapter<JoinClasses, JoinClassAdapter.ClassesHolder> {
 
-    public ClassesAdapter(@NonNull FirestoreRecyclerOptions<Classes> options) {
+    public JoinClassAdapter(@NonNull FirestoreRecyclerOptions<JoinClasses> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ClassesHolder classesHolder, int i, @NonNull Classes classes) {
-        classesHolder.className.setText(classes.getClassName());
-        classesHolder.classSection.setText(classes.getClassSection());
-        classesHolder.accessCode.setText(classes.getAccessCode());
+    protected void onBindViewHolder(@NonNull ClassesHolder classesHolder, int i, @NonNull JoinClasses joinClasses) {
+        classesHolder.accessCode.setText(joinClasses.getClassID());
     }
 
     @NonNull
@@ -32,7 +31,7 @@ public class ClassesAdapter extends FirestoreRecyclerAdapter<Classes, ClassesAda
         return new ClassesHolder(view);
     }
 
-    class ClassesHolder extends RecyclerView.ViewHolder{
+    public class ClassesHolder extends RecyclerView.ViewHolder {
         TextView className, classSection, accessCode;
 
         public ClassesHolder(@NonNull View itemView) {
@@ -42,5 +41,4 @@ public class ClassesAdapter extends FirestoreRecyclerAdapter<Classes, ClassesAda
             accessCode = itemView.findViewById(R.id.tv_access_code);
         }
     }
-
 }
