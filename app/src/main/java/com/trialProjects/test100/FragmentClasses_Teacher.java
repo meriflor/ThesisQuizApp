@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class FragmentClasses_Teacher extends Fragment{
+public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapter.OnItemClickListener {
 
     //widgets
     private AlertDialog.Builder dialogBuilder;
@@ -48,7 +48,6 @@ public class FragmentClasses_Teacher extends Fragment{
     private EditText className, classSection,accessCode;
     private Button btn_create, btn_cancel;
     private FloatingActionButton fab;
-
     private FirebaseAuth app_auth;
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
@@ -56,9 +55,6 @@ public class FragmentClasses_Teacher extends Fragment{
     private AddClassesAdapter adapter;
     private View view;
     private DocumentSnapshot classDocSnapshot;
-    private ArrayList<AddClasses> listClasses = new ArrayList<>();
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -70,19 +66,10 @@ public class FragmentClasses_Teacher extends Fragment{
                 createClass();
             }
         });
-
-        setUpRecyclerView();
         getClassList();
+
         return view;
     }
-
-    private void setUpRecyclerView() {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-    }
-
     private void getClassList(){
         app_fireStore = FirebaseFirestore.getInstance();
 
@@ -98,22 +85,35 @@ public class FragmentClasses_Teacher extends Fragment{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-    }
 
+        adapter.setOnItemClickListener(new AddClassesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
+                AddClasses classes = documentSnapshot.toObject(AddClasses.class);
+                String classroomID = documentSnapshot.getId().toString();
+                String TeacherID =documentSnapshot.getString("teacherID");
+                String className = documentSnapshot.getString("className");
+                Intent intent = new Intent(getContext(),TeacherClassRoomPage.class);
+                intent.putExtra(TeacherClassRoomPage.CLASSNAME,className);
+                intent.putExtra(TeacherClassRoomPage.CLASSROOMID,classroomID);
+
+
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
     }
-
     @Override
     public void onStop() {
         super.onStop();
         adapter.stopListening();
     }
-
     private void addNewClasses(String className, String classSection) {
-
         DbQuery.createClass(className, classSection, new MyCompleteListener() {
             @Override
             public void onSuccess() {
@@ -126,16 +126,13 @@ public class FragmentClasses_Teacher extends Fragment{
             }
         });
     }
-
     private void createClass(){
         dialogBuilder = new AlertDialog.Builder(getContext());
         View createClassView = getLayoutInflater().inflate(R.layout.pop_up_window_create, null);
-
         className = createClassView.findViewById(R.id.et_class_name);
         classSection = createClassView.findViewById(R.id.et_class_section);
         btn_create = createClassView.findViewById(R.id.btn_create);
         btn_cancel = createClassView.findViewById(R.id.btn_cancel);
-
         dialogBuilder.setView(createClassView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -143,10 +140,8 @@ public class FragmentClasses_Teacher extends Fragment{
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String name= className.getText().toString().trim();
                 String section= classSection.getText().toString().trim();
-
                 if(name.isEmpty()||section.isEmpty())
                 {
                     Toast.makeText(getContext(),"Please enter the class name and section",Toast.LENGTH_SHORT).show();
@@ -155,15 +150,17 @@ public class FragmentClasses_Teacher extends Fragment{
                     addNewClasses(name,section);
                     dialog.dismiss();
                 }
-
             }
         });
-
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+    }
+    @Override
+    public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+
     }
 }

@@ -9,6 +9,7 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
+    android:backgroundTint="@color/green"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
@@ -17,23 +18,25 @@
         android:layout_height="60dp"
         android:contentDescription="User Profile Image"
         android:paddingTop="8dp"
-        android:src="@drawable/ic_menu_user"/>
+        android:src="@drawable/loginbutton"/>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="Name"
         android:paddingTop="8dp"
-        android:text="NAMEEEEEE"
-        android:textColor="#9BA4B4"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <TextView
         android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#9BA4B4"
-        android:text="emaaaaaaiiillll@gmail.com"/>
+        android:hint="harrisrevelo@gmail.com"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
 
 </LinearLayout>

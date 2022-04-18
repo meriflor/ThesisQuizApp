@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class AddClassesAdapter extends FirestoreRecyclerAdapter<AddClasses, AddClassesAdapter.ClassesHolder> {
 
@@ -29,18 +30,41 @@ public class AddClassesAdapter extends FirestoreRecyclerAdapter<AddClasses, AddC
     @Override
     public ClassesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
-        return new ClassesHolder(view);
+        return new ClassesHolder(view, mListener);
     }
-
+    private OnItemClickListener mListener;
+    public interface OnItemClickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
     class ClassesHolder extends RecyclerView.ViewHolder{
         TextView className, classSection, accessCode;
 
-        public ClassesHolder(@NonNull View itemView) {
+        public ClassesHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             className = itemView.findViewById(R.id.tv_class_name);
             classSection = itemView.findViewById(R.id.tv_class_section);
             accessCode = itemView.findViewById(R.id.tv_access_code);
+
+            //sunday
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(getSnapshots().getSnapshot(position),position);
+                        }
+
+
+                    }
+                }
+            });
         }
     }
+
 
 }
