@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test100">
         <activity
+            android:name=".StudentClassRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".TeacherClassRoomActivity"
             android:exported="false" />
         <activity

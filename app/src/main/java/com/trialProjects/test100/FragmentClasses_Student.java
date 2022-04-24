@@ -2,6 +2,7 @@ package com.trialProjects.test100;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -79,6 +81,21 @@ public class FragmentClasses_Student extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new JoinClassAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                JoinClasses classes = documentSnapshot.toObject(JoinClasses.class);
+                String classroomID = documentSnapshot.getId().toString();
+                String TeacherID =documentSnapshot.getString("teacherID");
+                String className = documentSnapshot.getString("className");
+                Intent intent = new Intent(getContext(),StudentClassRoomActivity.class);
+                intent.putExtra(StudentClassRoomActivity.CLASSNAME,className);
+                intent.putExtra(StudentClassRoomActivity.CLASSROOMID,classroomID);
+
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

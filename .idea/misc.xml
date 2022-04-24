@@ -57,10 +57,12 @@
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/teacherclassroom_recyclerviewbg.xml" value="0.14" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_homepage.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_intro_page.xml" value="0.33" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_questions.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_registration.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_sign_in.xml" value="0.25" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_student_class_room.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_home_page.xml" value="0.27239583333333334" />
-        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.1" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_room_page.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/class_item.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/fragment_classes__student.xml" value="0.27239583333333334" />
