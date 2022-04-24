@@ -36,6 +36,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Test100/app/src/main/res/menu/teacher_access_homepage.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Test100/app/src/main/res/menu/teacher_homepage_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2465" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/assignment_logo.xml" value="0.228" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/fab_label_background.xml" value="0.14" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/ic_assignment_logo.xml" value="0.271" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/ic_classes_profile.xml" value="0.1" />
@@ -49,6 +50,7 @@
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/ic_menu_user.xml" value="0.2465" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/ic_path_13.xml" value="0.246" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/loginbtn.xml" value="0.2895" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/quiz_logo.xml" value="0.228" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/round_profile.xml" value="0.2465" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/signinbtn.xml" value="0.2465" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/drawable/spinnertype.xml" value="0.251" />
@@ -56,8 +58,9 @@
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_homepage.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_intro_page.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_registration.xml" value="0.33" />
-        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_sign_in.xml" value="0.5" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_sign_in.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_home_page.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/activity_teacher_class_room_page.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/class_item.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/myDesign/app/src/main/res/layout/fragment_classes__student.xml" value="0.27239583333333334" />

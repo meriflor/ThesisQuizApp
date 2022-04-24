@@ -18,7 +18,7 @@
         android:layout_height="60dp"
         android:contentDescription="User Profile Image"
         android:paddingTop="8dp"
-        android:src="@drawable/loginbutton"/>
+        android:src="@drawable/imagecreate"/>
 
     <TextView
         android:id="@+id/user_name"

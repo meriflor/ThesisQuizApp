@@ -94,9 +94,9 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
                 String classroomID = documentSnapshot.getId().toString();
                 String TeacherID =documentSnapshot.getString("teacherID");
                 String className = documentSnapshot.getString("className");
-                Intent intent = new Intent(getContext(),TeacherClassRoomPage.class);
-                intent.putExtra(TeacherClassRoomPage.CLASSNAME,className);
-                intent.putExtra(TeacherClassRoomPage.CLASSROOMID,classroomID);
+                Intent intent = new Intent(getContext(),TeacherClassRoomActivity.class);
+                intent.putExtra(TeacherClassRoomActivity.CLASSNAME,className);
+                intent.putExtra(TeacherClassRoomActivity.CLASSROOMID,classroomID);
 
 
                 startActivity(intent);
