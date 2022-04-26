@@ -28,7 +28,6 @@ public class SignIn extends AppCompatActivity {
 
     String email, pass;
     FirebaseAuth app_Auth;
-    FirebaseFirestore app_fireStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +78,7 @@ public class SignIn extends AppCompatActivity {
                 Toast.makeText(SignIn.this, "Logged In", Toast.LENGTH_SHORT).show();
                 //checkUserType();
                 startActivity(new Intent(getApplicationContext(), Homepage.class));
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -88,22 +88,5 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
-    //to check if the user is a teacher or a student
-    /*private void checkUserType() {
-        FirebaseUser userID = app_Auth.getCurrentUser();
-        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
-        userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    startActivity(new Intent(SignIn.this, Homepage.class));
-                    finish();
-                }
-                else if(documentSnapshot.getString("userType").equals("Student")) {
-                    startActivity(new Intent(SignIn.this, Homepage.class));
-                    finish();
-                }
-            }
-        });
-    }*/
+
 }
