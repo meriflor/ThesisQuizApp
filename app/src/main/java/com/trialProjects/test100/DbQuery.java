@@ -30,7 +30,23 @@ public class DbQuery {
     public static FirebaseFirestore app_fireStore;
     DocumentSnapshot lastAddedClass;
 
+    public static void createQuizName(String quizname, String classid, MyCompleteListener completeListener){
+        DocumentReference quizList = app_fireStore.collection("QUIZLIST").document();
+        Map<String, Object> quizData = new HashMap<>();
+        quizData.put("quizName",quizname);
+        quizData.put("classId",classid);
+        quizData.put("QuizID",quizList.getId());
+        quizList.set(quizData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) { completeListener.onSuccess(); }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) { completeListener.onFailure(); }
+        });
 
+
+
+    }
     public static void createStudentData(String email, String fullName, String schoolId, MyCompleteListener completeListener){
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -107,32 +123,6 @@ public class DbQuery {
         });
     }
 
-//    public static void checkStudentClassExist(String classID, MyCompleteListener completeListener){
-//        app_fireStore = FirebaseFirestore.getInstance();
-//        String studentClassID = classID;
-//        String studentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        CollectionReference classRef = app_fireStore.collection("STUDENTS");
-//        classRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()){
-//                    for(QueryDocumentSnapshot document: task.getResult()){
-//                        String class_id = document.getString("classID");
-//                        String class_studentID = document.getString("studentID");
-//                        Log.d(TAG, class_id + " " + class_studentID);
-//                        //Log.d(TAG, studentClassID + " " + classID);
-//
-//                        if(class_id.equals(studentClassID) && class_studentID.equals(studentID)){
-//                            completeListener.onSuccess();
-//                            return;
-//                        }
-//                    }
-//                    completeListener.onFailure();
-//                }
-//            }
-//        });
-//    }
-
     public static void checkStudentClassExist(String classID, MyCompleteListener completeListener){
         app_fireStore = FirebaseFirestore.getInstance();
         String studentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -158,41 +148,6 @@ public class DbQuery {
         });
     }
 
-//    public static void joinClass(String classID, String studentID, MyCompleteListener completeListener){
-//
-//        DocumentReference classesRef = FirebaseFirestore.getInstance()
-//                .collection("CLASSES")
-//                .document(classID);
-//        classesRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                String className = documentSnapshot.getString("className");
-//                String classSection = documentSnapshot.getString("classSection");
-//
-//                DocumentReference classRef = app_fireStore.collection("STUDENTS")
-//                        .document();
-//
-//                Map<String, Object> userData = new HashMap<>();
-//                userData.put("classID", classID);
-//                userData.put("studentID", studentID);
-//                userData.put("className", className);
-//                userData.put("classSection", classSection);
-//
-//                classRef.set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        completeListener.onSuccess();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        completeListener.onFailure();
-//                    }
-//                });
-//            }
-//        });
-//
-//    }
 
     public static void joinClass(String classID, String studentID, MyCompleteListener completeListener){
 
