@@ -46,27 +46,27 @@
         app:fab_addButtonColorNormal="@color/green"
         app:fab_addButtonColorPressed="@color/lightGreen"
         app:fab_addButtonPlusIconColor="@color/white"
-        app:fab_labelStyle="@style/customFab" >
+        app:fab_labelStyle="@style/customFab">
+
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/white"
-            app:fab_colorPressed="@color/white"
-            app:fab_size="mini"
-            app:fab_icon="@drawable/quiz_logo"
             android:id="@+id/createQuizBtn"
-            app:fab_title="Create Quiz"
-            />
-        <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/quiz_logo"
             app:fab_size="mini"
-            app:fab_icon="@drawable/assignment_logo"
+            app:fab_title="Create Quiz" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/createAssignmentBtn"
-            app:fab_title="Create Assignment"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/assignment_logo"
+            app:fab_size="mini"
+            app:fab_title="Create Assignment" />
 
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/studentClassRoomActivity">
+
+    <activity
+        android:id="@+id/studentClassRoomActivity"
+        android:name="com.trialProjects.test100.StudentClassRoomActivity"
+        android:label="activity_student_class_room"
+        tools:layout="@layout/activity_student_class_room" />
+    <fragment
+        android:id="@+id/studentQuizFragment"
+        android:name="com.trialProjects.test100.Fragment.StudentQuizFragment"
+        android:label="fragment_student_quiz"
+        tools:layout="@layout/fragment_student_quiz" >
+        <action
+            android:id="@+id/action_studentQuizFragment_to_studentQuizResultFragment"
+            app:destination="@id/studentQuizResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentQuizResultFragment"
+        android:name="com.trialProjects.test100.Fragment.StudentQuizResultFragment"
+        android:label="fragment_student_quiz_result"
+        tools:layout="@layout/fragment_student_quiz_result" >
+        <action
+            android:id="@+id/action_studentQuizResultFragment_to_studentClassRoomActivity"
+            app:destination="@id/studentClassRoomActivity" />
+    </fragment>
+</navigation>
