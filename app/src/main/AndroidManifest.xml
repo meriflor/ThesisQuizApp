@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test100">
         <activity
+            android:name=".TeacherCreateQuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".StudentClassRoomActivity"
             android:exported="false" />
         <activity
@@ -21,7 +24,7 @@
         <activity
             android:name=".Homepage"
             android:exported="true"
-            android:theme="@style/Theme.Test100.NoActionBar"/>
+            android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
             android:name=".activities.SignIn"
             android:exported="true"

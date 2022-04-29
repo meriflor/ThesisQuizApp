@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/darkBlueGreen"
+    android:background="@drawable/gradient_color"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    android:backgroundTint="@color/green"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
@@ -18,7 +17,7 @@
         android:layout_height="60dp"
         android:contentDescription="User Profile Image"
         android:paddingTop="8dp"
-        android:src="@drawable/imagecreate"/>
+        android:src="@drawable/imagecreate" />
 
     <TextView
         android:id="@+id/user_name"

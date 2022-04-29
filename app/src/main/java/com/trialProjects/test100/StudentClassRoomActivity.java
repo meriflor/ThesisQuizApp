@@ -1,14 +1,28 @@
 package com.trialProjects.test100;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class StudentClassRoomActivity extends AppCompatActivity {
     public static final String CLASSNAME ="Class Name";
     public static final String CLASSROOMID = "Class Room Id";
+    private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
+    private StudentQuizAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,5 +40,35 @@ public class StudentClassRoomActivity extends AppCompatActivity {
 
         et_ClassName.setText("Class Name: "+classNAME);
         et_ClassId.setText("Class Id: "+ classID);
+
+        app_fireStore = FirebaseFirestore.getInstance();
+        CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
+        Query quizQuery = quizRef
+                .whereEqualTo("classId", classID)
+                .orderBy("quizName", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()
+                .setQuery(quizQuery, StudentQuizModel.class)
+                .build();
+
+
+        adapter = new StudentQuizAdapter(options);
+        RecyclerView studentQuizRecyclerView = findViewById(R.id.studentQuizRecyclerView);
+        studentQuizRecyclerView.setHasFixedSize(true);
+        studentQuizRecyclerView.setLayoutManager(new LinearLayoutManager(StudentClassRoomActivity.this));
+        studentQuizRecyclerView.setAdapter(adapter);
+
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
 }

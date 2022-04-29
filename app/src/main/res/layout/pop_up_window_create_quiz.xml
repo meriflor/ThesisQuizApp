@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@drawable/gradient_color"
     android:elevation="5dp"
     android:orientation="vertical"
     android:padding="10dp"
@@ -17,10 +17,11 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="146dp"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="188dp"
         android:layout_marginEnd="155dp"
         android:src="@drawable/book_iconh"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:hint="Create Quiz Title"
         android:singleLine="true"
@@ -39,7 +40,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classes_image" />
 
@@ -48,25 +48,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/signinbtn"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/loginbtn"
         android:backgroundTint="@color/white"
         android:text="Create"
         android:textColor="@color/gray"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_cancel_quiz"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_create_quiz"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintTop_toBottomOf="@+id/et_create_quiz" />
 
     <Button
         android:id="@+id/btn_cancel_quiz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/signinbtn"
+        android:background="@drawable/loginbtn"
         android:backgroundTint="@color/white"
         android:text="Cancel"
         android:textColor="@color/gray"

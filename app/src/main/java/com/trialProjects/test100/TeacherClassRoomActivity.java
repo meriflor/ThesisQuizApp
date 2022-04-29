@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -63,6 +64,16 @@ private AlertDialog dialog;
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherClassRoomActivity.this));
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new TeacherQuizAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                QuizModel quizModel = documentSnapshot.toObject(QuizModel.class);
+                String quizid = documentSnapshot.getId().toString();
+                Intent intent = new Intent (TeacherClassRoomActivity.this,TeacherCreateQuestionActivity.class);
+                intent.putExtra(TeacherCreateQuestionActivity.QUIZID,quizid);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton createQuizBtn = findViewById(R.id.createQuizBtn);
         createQuizBtn.setOnClickListener(new View.OnClickListener() {

@@ -9,13 +9,15 @@
 
     <ImageView
         android:id="@+id/greenbackTop"
-        android:layout_width="409dp"
-        android:layout_height="230dp"
+        android:layout_width="428dp"
+        android:layout_height="241dp"
+
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/greentop_image" />
+        app:srcCompat="@drawable/sign_in_new_brgnd" />
 
     <ImageView
         android:id="@+id/manIcon"
@@ -33,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/loginbtn"
         android:drawableLeft="@drawable/ic_email"
@@ -146,7 +148,7 @@
         android:id="@+id/view5"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="88dp"
         android:layout_marginEnd="14dp"
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/or"
@@ -211,10 +213,11 @@
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/greenbackTop"
+
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView11"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
         app:srcCompat="@drawable/imagecreate" />
 
     <ImageView
@@ -222,21 +225,33 @@
         android:layout_width="412dp"
         android:layout_height="84dp"
         android:scaleType="fitXY"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/greenbottom_image" />
+        app:srcCompat="@drawable/bottom_image" />
 
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/signin" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/signin_image" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="118dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splashtopwhite" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
