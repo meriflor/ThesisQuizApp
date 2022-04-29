@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tralala</string>
+    <string name="app_name">LEARNING BUDDY</string>
     <string-array name="userType">
         <item>Select User Type</item>
         <item>Teacher</item>

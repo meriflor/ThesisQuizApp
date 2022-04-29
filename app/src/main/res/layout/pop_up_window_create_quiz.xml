@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="270dp"
+    android:layout_gravity="center"
     android:background="@drawable/gradient_color"
     android:elevation="5dp"
     android:orientation="vertical"
@@ -14,23 +15,20 @@
 
     <ImageView
         android:id="@+id/classes_image"
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/book_iconh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.736"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_create_quiz"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/white"
         android:hint="Create Quiz Title"
         android:singleLine="true"
@@ -45,9 +43,10 @@
 
     <Button
         android:id="@+id/btn_create_quiz"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/loginbtn"
         android:backgroundTint="@color/white"
@@ -61,9 +60,10 @@
 
     <Button
         android:id="@+id/btn_cancel_quiz"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/loginbtn"
         android:backgroundTint="@color/white"
         android:text="Cancel"

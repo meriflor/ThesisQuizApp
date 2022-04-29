@@ -30,6 +30,24 @@ public class DbQuery {
     public static FirebaseFirestore app_fireStore;
     DocumentSnapshot lastAddedClass;
 
+    public static void createQuestionName(String questionName,String quizIDD, MyCompleteListener completeListener){
+        DocumentReference questionList = app_fireStore.collection("QUESTIONS").document();
+        Map<String, Object> questionNameData = new HashMap<>();
+        questionNameData.put("question",questionName);
+        questionNameData.put("quizId",quizIDD);
+        questionNameData.put("questionId",questionList.getId());
+        questionList.set(questionNameData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) { completeListener.onSuccess(); }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) { completeListener.onFailure(); }
+        });
+
+
+
+    }
+
     public static void createQuizName(String quizname, String classid, MyCompleteListener completeListener){
         DocumentReference quizList = app_fireStore.collection("QUIZLIST").document();
         Map<String, Object> quizData = new HashMap<>();

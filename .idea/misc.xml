@@ -61,13 +61,13 @@
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable/quiz_logo.xml" value="0.265" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable/round_profile.xml" value="0.265" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable/signinbtn.xml" value="0.227" />
-        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_homepage.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_homepage.xml" value="0.1" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_intro_page.xml" value="0.33" />
-        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_questions.xml" value="0.27239583333333334" />
-        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_registration.xml" value="0.33" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_questions.xml" value="0.25" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_registration.xml" value="0.18" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_student_class_room.xml" value="0.33" />
-        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.25" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.1" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/activity_teacher_create_question.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/class_item.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/fragment_classes__student.xml" value="0.27239583333333334" />
@@ -80,6 +80,8 @@
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/pop_up_window_create.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/pop_up_window_create_quiz.xml" value="0.33" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/pop_up_window_join.xml" value="0.33" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/popup_window_create_question.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/question_item.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/quiz_item.xml" value="0.25" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/student_class_item.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/layout/student_quiz_item.xml" value="0.22735507246376813" />
@@ -132,5 +134,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.18" />
+      </ProjectState>
+    </option>
   </component>
 </project>

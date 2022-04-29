@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class TeacherClassRoomActivity extends AppCompatActivity {
+
 public static final String CLASSNAME ="Class Name";
 public static final String CLASSROOMID = "Class Room Id";
 private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
@@ -40,6 +41,7 @@ private AlertDialog dialog;
         String classID;
         TextView etClassName;
         TextView etClassId;
+
         etClassName = findViewById(R.id.etClassNAME);
         etClassId = findViewById(R.id.etClassID);
 
@@ -50,15 +52,12 @@ private AlertDialog dialog;
         etClassName.setText("Class Name: "+classNAME);
         etClassId.setText("Class Id: "+ classID);
 
-
-        app_fireStore = FirebaseFirestore.getInstance();
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef
-                    .whereEqualTo("classId", classID)
-               //  .whereEqualTo("classId",classID )
+                .whereEqualTo("classId", classID)
                 .orderBy("quizName", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<QuizModel> options = new FirestoreRecyclerOptions.Builder<QuizModel>().setQuery(quizQuery, QuizModel.class).build();
-       adapter = new TeacherQuizAdapter(options);
+        adapter = new TeacherQuizAdapter(options);
         RecyclerView recyclerView = findViewById(R.id.teacher_quiz_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherClassRoomActivity.this));
@@ -107,6 +106,13 @@ private AlertDialog dialog;
                             }
                         }
                     });
+                    btnCancelQuiz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
 
             }
         });

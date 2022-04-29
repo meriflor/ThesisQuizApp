@@ -22,12 +22,13 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="32dp"
             android:src="@drawable/ic_menu_class"
-            app:fabSize="normal"
-            android:layout_gravity="bottom|end"/>
+            app:backgroundTint="@color/green"
+            app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </FrameLayout>

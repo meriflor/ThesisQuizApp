@@ -14,25 +14,15 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/tv_quizName"
+            android:id="@+id/tv_questionName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:ellipsize="end"
-            android:maxLines="1"
             android:text="Quiz name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_total_questions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_quizName"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Total Questions: "
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

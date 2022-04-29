@@ -7,9 +7,10 @@
     tools:context=".TeacherCreateQuestionActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-
+        android:id="@+id/create_question_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="680dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_question"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="67dp" />
@@ -18,13 +19,14 @@
         android:id="@+id/btn_add_question"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="add new question"
         android:background="@color/green"
+        android:text="add new question"
         android:textColor="@color/white"
         android:textSize="20dp"
 
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
