@@ -1,19 +1,16 @@
 package com.trialProjects.test100;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -45,17 +42,27 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef
                 .whereEqualTo("classId", classID)
-                .orderBy("quizName", Query.Direction.ASCENDING);
+                .orderBy("quizId", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()
                 .setQuery(quizQuery, StudentQuizModel.class)
                 .build();
-
 
         adapter = new StudentQuizAdapter(options);
         RecyclerView studentQuizRecyclerView = findViewById(R.id.studentQuizRecyclerView);
         studentQuizRecyclerView.setHasFixedSize(true);
         studentQuizRecyclerView.setLayoutManager(new LinearLayoutManager(StudentClassRoomActivity.this));
         studentQuizRecyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new StudentQuizAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                StudentQuizModel studentQuizModel = documentSnapshot.toObject(StudentQuizModel.class);
+                String quizID = documentSnapshot.getString("quizId");
+                Intent intent = new Intent(StudentClassRoomActivity.this, StudentQuestionsActivity.class);
+                intent.putExtra(StudentQuestionsActivity.QUIZID, quizID);
+                startActivity(intent);
+            }
+        });
 
     }
 

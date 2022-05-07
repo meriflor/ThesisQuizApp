@@ -49,7 +49,6 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
                     new FragmentHome()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
-
     }
 
     @Override

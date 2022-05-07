@@ -3,11 +3,10 @@ package com.trialProjects.test100;
 public class StudentQuizModel {
     private String quizName;
 
-    public StudentQuizModel(String quizName, String classId, String quizId){
-
+    public StudentQuizModel() {
     }
 
-    public StudentQuizModel(String name, String classId, String studentId, String quizName) {
+    public StudentQuizModel(String quizName) {
         this.quizName = quizName;
     }
 

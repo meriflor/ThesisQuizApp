@@ -85,7 +85,7 @@ public class FragmentClasses_Student extends Fragment {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 JoinClasses classes = documentSnapshot.toObject(JoinClasses.class);
-                String classroomID = documentSnapshot.getId().toString();
+                String classroomID = documentSnapshot.getString("classID");
                 String TeacherID =documentSnapshot.getString("teacherID");
                 String className = documentSnapshot.getString("className");
                 Intent intent = new Intent(getContext(),StudentClassRoomActivity.class);

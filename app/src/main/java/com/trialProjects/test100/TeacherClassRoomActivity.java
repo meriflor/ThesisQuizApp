@@ -56,7 +56,9 @@ private AlertDialog dialog;
         Query quizQuery = quizRef
                 .whereEqualTo("classId", classID)
                 .orderBy("quizName", Query.Direction.ASCENDING);
-        FirestoreRecyclerOptions<QuizModel> options = new FirestoreRecyclerOptions.Builder<QuizModel>().setQuery(quizQuery, QuizModel.class).build();
+        FirestoreRecyclerOptions<QuizModel> options = new FirestoreRecyclerOptions.Builder<QuizModel>()
+                .setQuery(quizQuery, QuizModel.class)
+                .build();
         adapter = new TeacherQuizAdapter(options);
         RecyclerView recyclerView = findViewById(R.id.teacher_quiz_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -67,7 +69,8 @@ private AlertDialog dialog;
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 QuizModel quizModel = documentSnapshot.toObject(QuizModel.class);
-                String quizid = documentSnapshot.getId().toString();
+               // String quizid = documentSnapshot.getId().toString();
+                String quizid = documentSnapshot.getString("quizId");
                 Intent intent = new Intent (TeacherClassRoomActivity.this,TeacherCreateQuestionActivity.class);
                 intent.putExtra(TeacherCreateQuestionActivity.QUIZID,quizid);
                 startActivity(intent);

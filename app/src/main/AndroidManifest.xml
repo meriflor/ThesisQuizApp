@@ -16,7 +16,7 @@
             android:name=".StudentClassRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".QuestionsActivity"
+            android:name=".StudentQuestionsActivity"
             android:exported="false" />
         <activity
             android:name=".TeacherClassRoomActivity"

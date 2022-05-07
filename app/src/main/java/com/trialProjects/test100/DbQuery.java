@@ -53,7 +53,7 @@ public class DbQuery {
         Map<String, Object> quizData = new HashMap<>();
         quizData.put("quizName",quizname);
         quizData.put("classId",classid);
-        quizData.put("QuizID",quizList.getId());
+        quizData.put("quizId",quizList.getId());
         quizList.set(quizData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) { completeListener.onSuccess(); }
