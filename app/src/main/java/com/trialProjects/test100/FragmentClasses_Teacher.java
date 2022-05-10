@@ -2,6 +2,7 @@ package com.trialProjects.test100;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +35,7 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
     //widgets
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private EditText className, classSection,accessCode;
+    private EditText className, classSection;
     private Button btn_create, btn_cancel;
     private FloatingActionButton fab;
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
@@ -50,6 +53,7 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
                 createClass();
             }
         });
+
         getClassList();
 
         return view;
@@ -73,7 +77,6 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
         adapter.setOnItemClickListener(new AddClassesAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-
                 AddClasses classes = documentSnapshot.toObject(AddClasses.class);
                 String classroomID = documentSnapshot.getId().toString();
                 String TeacherID =documentSnapshot.getString("teacherID");
@@ -81,8 +84,6 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
                 Intent intent = new Intent(getContext(),TeacherClassRoomActivity.class);
                 intent.putExtra(TeacherClassRoomActivity.CLASSNAME,className);
                 intent.putExtra(TeacherClassRoomActivity.CLASSROOMID,classroomID);
-
-
                 startActivity(intent);
             }
         });

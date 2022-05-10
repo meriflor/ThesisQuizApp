@@ -1,11 +1,14 @@
 package com.trialProjects.test100;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -15,7 +18,8 @@ import com.google.firebase.firestore.Query;
 
 public class StudentQuestionsActivity extends AppCompatActivity {
 
-    public static String QUIZID = "Quiz";
+    public static final String QUIZNAME = "Quiz Name";
+    public static String QUIZID = "QuizID";
     private StudentQuestionsAdapter adapter;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
@@ -24,11 +28,17 @@ public class StudentQuestionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_questions);
 
-        String quizID;
+        String quizID, quizName;
         Intent intent = getIntent();
         quizID = intent.getStringExtra(QUIZID);
-        TextView tv_quizID = findViewById(R.id.tv_quizID);
-        tv_quizID.setText("Quiz ID: " + quizID);
+        quizName = intent.getStringExtra(QUIZNAME);
+
+        //added code
+        Toolbar toolbar = findViewById(R.id.student_quizToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(quizName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //end of code
 
         CollectionReference quesRef = firestore.collection("QUESTIONS");
         Query query = quesRef
@@ -56,4 +66,13 @@ public class StudentQuestionsActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

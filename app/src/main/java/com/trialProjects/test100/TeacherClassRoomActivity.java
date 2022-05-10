@@ -2,14 +2,17 @@ package com.trialProjects.test100;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,18 +42,17 @@ private AlertDialog dialog;
 
         String classNAME;
         String classID;
-        TextView etClassName;
-        TextView etClassId;
-
-        etClassName = findViewById(R.id.etClassNAME);
-        etClassId = findViewById(R.id.etClassID);
 
         Intent intent = getIntent();
         classNAME = intent.getStringExtra(CLASSNAME);
         classID = intent.getStringExtra(CLASSROOMID);
 
-        etClassName.setText("Class Name: "+classNAME);
-        etClassId.setText("Class Id: "+ classID);
+        //added code
+        Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(classNAME);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //end of code
 
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef
@@ -69,9 +71,10 @@ private AlertDialog dialog;
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 QuizModel quizModel = documentSnapshot.toObject(QuizModel.class);
-               // String quizid = documentSnapshot.getId().toString();
                 String quizid = documentSnapshot.getString("quizId");
+                String quizName = documentSnapshot.getString("quizName");
                 Intent intent = new Intent (TeacherClassRoomActivity.this,TeacherCreateQuestionActivity.class);
+                intent.putExtra(TeacherCreateQuestionActivity.QUIZNAME,quizName);
                 intent.putExtra(TeacherCreateQuestionActivity.QUIZID,quizid);
                 startActivity(intent);
             }
@@ -154,5 +157,15 @@ private AlertDialog dialog;
 
     public void showText(String name){
         Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,13 +2,16 @@ package com.trialProjects.test100;
 
 import static com.trialProjects.test100.DbQuery.app_fireStore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class TeacherCreateQuestionActivity extends AppCompatActivity {
-    public static final String QUIZID = "hala";
+    public static final String QUIZNAME = "quizNAME";
+    public static final String QUIZID = "quizID";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
@@ -34,10 +38,19 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_create_question);
 
+        String quizName;
         String quizID;
         Intent intent = getIntent();
         quizID = intent.getStringExtra(QUIZID);
+        quizName = intent.getStringExtra(QUIZNAME);
         Button btnAddQuestion;
+
+        //added code
+        Toolbar toolbar = findViewById(R.id.teacher_quizToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(quizName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //end of code
 
         CollectionReference questionNameRef = app_fireStore.collection("QUESTIONS");
         Query questionNameQuery = questionNameRef
@@ -115,5 +128,15 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

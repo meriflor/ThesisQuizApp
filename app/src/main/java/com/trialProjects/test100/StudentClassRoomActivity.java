@@ -1,11 +1,15 @@
 package com.trialProjects.test100;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -26,17 +30,17 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_class_room);
         String classNAME;
         String classID;
-        TextView et_ClassName;
-        TextView et_ClassId;
-        et_ClassName = findViewById(R.id.et_ClassNAME);
-        et_ClassId = findViewById(R.id.et_ClassID);
 
         Intent intent = getIntent();
         classNAME = intent.getStringExtra(CLASSNAME);
         classID = intent.getStringExtra(CLASSROOMID);
 
-        et_ClassName.setText("Class Name: "+classNAME);
-        et_ClassId.setText("Class Id: "+ classID);
+        //added code
+        Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(classNAME);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //end of code
 
         app_fireStore = FirebaseFirestore.getInstance();
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
@@ -53,13 +57,16 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         studentQuizRecyclerView.setLayoutManager(new LinearLayoutManager(StudentClassRoomActivity.this));
         studentQuizRecyclerView.setAdapter(adapter);
 
+
         adapter.setOnItemClickListener(new StudentQuizAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 StudentQuizModel studentQuizModel = documentSnapshot.toObject(StudentQuizModel.class);
                 String quizID = documentSnapshot.getString("quizId");
+                String quizName = documentSnapshot.getString("quizName");
                 Intent intent = new Intent(StudentClassRoomActivity.this, StudentQuestionsActivity.class);
                 intent.putExtra(StudentQuestionsActivity.QUIZID, quizID);
+                intent.putExtra(StudentQuestionsActivity.QUIZNAME, quizName);
                 startActivity(intent);
             }
         });
@@ -76,6 +83,16 @@ public class StudentClassRoomActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

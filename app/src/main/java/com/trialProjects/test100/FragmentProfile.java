@@ -1,5 +1,6 @@
 package com.trialProjects.test100;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,11 @@ public class FragmentProfile extends Fragment {
         app_fireStore = FirebaseFirestore.getInstance();
         userID = app_auth.getCurrentUser().getUid();
 
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Loading . . . ");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
         DocumentReference documentReference =  DbQuery.app_fireStore.collection("USERS").document(userID);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -57,6 +63,7 @@ public class FragmentProfile extends Fragment {
                 if(task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
+                        progressDialog.dismiss();
                         name.setText(documentSnapshot.getString("FULL_NAME"));
                         email.setText(documentSnapshot.getString("EMAIL"));
                     }else{

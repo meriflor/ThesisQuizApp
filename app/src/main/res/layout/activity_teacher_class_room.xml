@@ -1,50 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".TeacherClassRoomActivity">
 
-    <TextView
-        android:id="@+id/etClassNAME"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:singleLine="true" />
-
-    <TextView
-        android:id="@+id/etClassID"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/etClassNAME"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:singleLine="true" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/teacher_quiz_recyclerview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
-        android:background="#f4f4f4"
         android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/student_classroomToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/gradient_color"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/teacher_quiz_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f4f4f4"
+            android:orientation="vertical"/>
+
+    </LinearLayout>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         app:fab_addButtonColorNormal="@color/green"
         app:fab_addButtonColorPressed="@color/lightGreen"
         app:fab_addButtonPlusIconColor="@color/white"
-        app:fab_labelStyle="@style/customFab">
+        app:fab_labelStyle="@style/customFab"
+        android:layout_gravity="bottom|end">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/createQuizBtn"
@@ -66,8 +59,7 @@
             app:fab_size="mini"
             app:fab_title="Create Assignment" />
 
-
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

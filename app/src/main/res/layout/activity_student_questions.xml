@@ -7,12 +7,14 @@
     android:orientation="vertical"
     tools:context=".StudentQuestionsActivity">
 
-    <TextView
-        android:id="@+id/tv_quizID"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/student_quizToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="QuizID"
-        android:layout_margin="10dp"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/gradient_color"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_QuestionRecycler"
