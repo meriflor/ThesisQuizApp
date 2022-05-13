@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Listener;
 
 public interface MyCompleteListener {
 

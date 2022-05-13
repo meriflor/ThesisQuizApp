@@ -15,9 +15,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.trialProjects.test100.DbQuery;
-import com.trialProjects.test100.Homepage;
+import com.trialProjects.test100.UserActivity.Homepage;
 import com.trialProjects.test100.R;
 
 public class SignIn extends AppCompatActivity {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_color"
     android:orientation="vertical"
-    tools:context=".StudentQuestionsActivity">
+    tools:context=".Student.StudentQuestionsActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"

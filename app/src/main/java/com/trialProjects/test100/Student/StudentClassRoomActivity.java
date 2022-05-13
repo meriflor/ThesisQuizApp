@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,23 +6,25 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.R;
 
 public class StudentClassRoomActivity extends AppCompatActivity {
     public static final String CLASSNAME ="Class Name";
     public static final String CLASSROOMID = "Class Room Id";
+    public static final String STUDENTNAME = "Student name";
+    public static final String STUDENTID = "studID";
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private StudentQuizAdapter adapter;
+    private String studentName, studentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         Intent intent = getIntent();
         classNAME = intent.getStringExtra(CLASSNAME);
         classID = intent.getStringExtra(CLASSROOMID);
+        studentName = intent.getStringExtra(STUDENTNAME);
+        studentID = intent.getStringExtra(STUDENTID);
 
         //added code
         Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
@@ -67,6 +71,8 @@ public class StudentClassRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(StudentClassRoomActivity.this, StudentQuestionsActivity.class);
                 intent.putExtra(StudentQuestionsActivity.QUIZID, quizID);
                 intent.putExtra(StudentQuestionsActivity.QUIZNAME, quizName);
+                intent.putExtra(StudentQuestionsActivity.STUDENTNAME, studentName);
+                intent.putExtra(StudentQuestionsActivity.STUDENTID, studentID);
                 startActivity(intent);
             }
         });

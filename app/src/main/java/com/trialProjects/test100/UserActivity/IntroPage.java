@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.UserActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.R;
 import com.trialProjects.test100.activities.Registration;
 
 public class IntroPage extends AppCompatActivity {

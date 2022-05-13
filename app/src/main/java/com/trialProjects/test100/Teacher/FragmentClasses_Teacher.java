@@ -1,8 +1,7 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Teacher;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,8 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +21,13 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.Listener.MyCompleteListener;
+import com.trialProjects.test100.R;
 
 public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapter.OnItemClickListener {
 
@@ -81,7 +80,7 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
                 String classroomID = documentSnapshot.getId().toString();
                 String TeacherID =documentSnapshot.getString("teacherID");
                 String className = documentSnapshot.getString("className");
-                Intent intent = new Intent(getContext(),TeacherClassRoomActivity.class);
+                Intent intent = new Intent(getContext(), TeacherClassRoomActivity.class);
                 intent.putExtra(TeacherClassRoomActivity.CLASSNAME,className);
                 intent.putExtra(TeacherClassRoomActivity.CLASSROOMID,classroomID);
                 startActivity(intent);

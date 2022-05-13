@@ -10,22 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test100">
         <activity
-            android:name=".StudentResultActivity"
+            android:name=".Student.StudentResultActivity"
             android:exported="true" />
         <activity
-            android:name=".TeacherCreateQuestionActivity"
+            android:name=".Teacher.TeacherCreateQuestionActivity"
             android:exported="false" />
         <activity
-            android:name=".StudentClassRoomActivity"
+            android:name=".Student.StudentClassRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".StudentQuestionsActivity"
+            android:name=".Student.StudentQuestionsActivity"
             android:exported="false" />
         <activity
-            android:name=".TeacherClassRoomActivity"
+            android:name=".Teacher.TeacherClassRoomActivity"
             android:exported="false" />
         <activity
-            android:name=".Homepage"
+            android:name=".UserActivity.Homepage"
             android:exported="true"
             android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
@@ -37,7 +37,7 @@
             android:exported="true"
             android:theme="@style/Theme.Test100.NoActionBar" />
         <activity
-            android:name=".IntroPage"
+            android:name=".UserActivity.IntroPage"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

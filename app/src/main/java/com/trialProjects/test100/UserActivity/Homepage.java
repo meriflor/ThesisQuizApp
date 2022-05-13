@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.UserActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.R;
+import com.trialProjects.test100.Student.FragmentClasses_Student;
+import com.trialProjects.test100.Teacher.FragmentClasses_Teacher;
 import com.trialProjects.test100.activities.Registration;
 
 public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

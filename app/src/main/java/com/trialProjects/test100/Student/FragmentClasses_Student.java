@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 import static android.content.ContentValues.TAG;
 
@@ -23,14 +23,15 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.Listener.MyCompleteListener;
+import com.trialProjects.test100.R;
 
 public class FragmentClasses_Student extends Fragment {
 
@@ -88,10 +89,13 @@ public class FragmentClasses_Student extends Fragment {
                 String classroomID = documentSnapshot.getString("classID");
                 String TeacherID =documentSnapshot.getString("teacherID");
                 String className = documentSnapshot.getString("className");
-                Intent intent = new Intent(getContext(),StudentClassRoomActivity.class);
+                String studentName = documentSnapshot.getString("studentName");
+                String studentID = documentSnapshot.getString("studentID");
+                Intent intent = new Intent(getContext(), StudentClassRoomActivity.class);
                 intent.putExtra(StudentClassRoomActivity.CLASSNAME,className);
                 intent.putExtra(StudentClassRoomActivity.CLASSROOMID,classroomID);
-
+                intent.putExtra(StudentClassRoomActivity.STUDENTNAME, studentName);
+                intent.putExtra(StudentClassRoomActivity.STUDENTID, studentID);
 
                 startActivity(intent);
             }
@@ -173,16 +177,31 @@ public class FragmentClasses_Student extends Fragment {
     }
 
     private void joinClassSuccessfully(String classID, String studentID) {
-        DbQuery.joinClass(classID, studentID, new MyCompleteListener() {
-            @Override
-            public void onSuccess() {
-                Log.d(TAG, "Class joined");
-            }
 
+        DocumentReference studRef = FirebaseFirestore.getInstance()
+                .collection("USERS").document(studentID);
+        studRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onFailure() {
-                Log.d(TAG, "Error occurred");
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot studDoc = task.getResult();
+                    String studentName = studDoc.getString("FULL_NAME");
+
+                    DbQuery.joinClass(classID, studentID, studentName, new MyCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "Class joined");
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Log.d(TAG, "Error occurred");
+                        }
+                    });
+                }
             }
         });
+
+
     }
 }

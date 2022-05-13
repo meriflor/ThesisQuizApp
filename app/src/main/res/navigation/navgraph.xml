@@ -7,7 +7,7 @@
 
     <activity
         android:id="@+id/studentClassRoomActivity"
-        android:name="com.trialProjects.test100.StudentClassRoomActivity"
+        android:name="com.trialProjects.test100.Student.StudentClassRoomActivity"
         android:label="activity_student_class_room"
         tools:layout="@layout/activity_student_class_room" />
     <fragment

@@ -1,16 +1,17 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 public class JoinClasses {
 
-    private String classID, studentID, className, classSection;
+    private String classID, studentID, studentName, className, classSection;
 
     public JoinClasses(){
 
     }
 
-    public JoinClasses(String classID, String studentID, String className, String classSection) {
+    public JoinClasses(String classID, String studentID, String studentName, String className, String classSection) {
         this.classID = classID;
         this.studentID = studentID;
+        this.studentName = studentName;
         this.className = className;
         this.classSection = classSection;
     }
@@ -31,4 +32,7 @@ public class JoinClasses {
         return classSection;
     }
 
+    public String getStudentName() {
+        return studentName;
+    }
 }

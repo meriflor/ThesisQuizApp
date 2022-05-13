@@ -1,6 +1,4 @@
-package com.trialProjects.test100;
-
-import static com.trialProjects.test100.DbQuery.app_fireStore;
+package com.trialProjects.test100.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,14 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.Listener.MyCompleteListener;
+import com.trialProjects.test100.R;
 
 public class TeacherCreateQuestionActivity extends AppCompatActivity {
     public static final String QUIZNAME = "quizNAME";

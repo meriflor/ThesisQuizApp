@@ -1,14 +1,13 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Teacher;
 
 public class QuestionModel {
-    private String questionid, question, optionA, optionB, optionC, optionD;
-    private int answer;
+    private String questionid, question, optionA, optionB, optionC, optionD, answer;
 
     public QuestionModel(){
 
     }
 
-    public QuestionModel(String questionid, String question, String optionA, String optionB, String optionC, String optionD, int answer) {
+    public QuestionModel(String questionid, String question, String optionA, String optionB, String optionC, String optionD, String answer) {
         this.questionid = questionid;
         this.question = question;
         this.optionA = optionA;
@@ -66,11 +65,11 @@ public class QuestionModel {
         this.optionD = optionD;
     }
 
-    public int getAnswer() {
+    public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(int answer) {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 }

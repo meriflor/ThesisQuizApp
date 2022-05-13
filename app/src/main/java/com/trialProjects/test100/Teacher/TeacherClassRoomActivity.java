@@ -1,6 +1,4 @@
-package com.trialProjects.test100;
-
-import static android.content.ContentValues.TAG;
+package com.trialProjects.test100.Teacher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -11,12 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -25,6 +21,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.trialProjects.test100.FirebaseServices.DbQuery;
+import com.trialProjects.test100.Listener.MyCompleteListener;
+import com.trialProjects.test100.R;
 
 public class TeacherClassRoomActivity extends AppCompatActivity {
 

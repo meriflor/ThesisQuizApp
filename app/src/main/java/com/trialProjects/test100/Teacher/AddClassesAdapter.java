@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Teacher;
 
 
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.trialProjects.test100.R;
 
 public class AddClassesAdapter extends FirestoreRecyclerAdapter<AddClasses, AddClassesAdapter.ClassesHolder> {
 

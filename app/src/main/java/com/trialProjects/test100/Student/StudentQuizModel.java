@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 public class StudentQuizModel {
     private String quizName;

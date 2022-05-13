@@ -1,4 +1,4 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 public class StudentQuestionsModel {
     private String question, optionA, optionB, optionC, optionD;

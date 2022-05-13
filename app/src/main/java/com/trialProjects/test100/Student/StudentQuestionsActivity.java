@@ -1,37 +1,28 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.Student;
 
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
+import com.trialProjects.test100.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +30,14 @@ import java.util.List;
 public class StudentQuestionsActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String QUIZNAME = "Quiz Name";
+    public static final String STUDENTNAME = "Student name";
+    public static final String STUDENTID = "studID";
     public static String QUIZID = "QuizID";
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private TextView questionCount, question;
     private Button optionA, optionB, optionC, optionD;
     private List<StudentQuestionsModel> questionList;
-    private String quizID, quizName;
+    private String quizID, quizName, studentName, studentID;
     int quesNum;
     int score;
 
@@ -56,6 +49,8 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
         Intent intent = getIntent();
         quizID = intent.getStringExtra(QUIZID);
         quizName = intent.getStringExtra(QUIZNAME);
+        studentName = intent.getStringExtra(STUDENTNAME);
+        studentID = intent.getStringExtra(STUDENTID);
 
         questionCount = findViewById(R.id.question_count);
         question = findViewById(R.id.question_name);
@@ -172,6 +167,9 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
             intent.putExtra(StudentResultActivity.SCORE, String.valueOf(score));
             intent.putExtra(StudentResultActivity.SCORE_OVER, String.valueOf(questionList.size()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra(StudentResultActivity.STUDENTNAME, studentName);
+            intent.putExtra(StudentResultActivity.QUIZID, quizID);
+            intent.putExtra(StudentResultActivity.STUDENTID, studentID);
             startActivity(intent);
         }
     }

@@ -1,11 +1,10 @@
-package com.trialProjects.test100;
+package com.trialProjects.test100.FirebaseServices;
 
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,20 +14,45 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.trialProjects.test100.Listener.MyCompleteListener;
+import com.trialProjects.test100.Student.JoinClasses;
+import com.trialProjects.test100.Teacher.AddClasses;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DbQuery {
 
-    public static FirebaseFirestore app_fireStore;
+    public static FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     DocumentSnapshot lastAddedClass;
+
+    public static void storeStudentRecord(String quizID, String score,
+                                          String studentName, String studentID, MyCompleteListener completeListener){
+        DocumentReference studentRecord = app_fireStore.collection("STUDENTSCORE")
+                .document();
+        Map<String, Object> studentRecordData = new HashMap<>();
+        studentRecordData.put("quizID", quizID);
+        studentRecordData.put("score", score);
+        studentRecordData.put("studentName", studentName);
+        studentRecordData.put("studentID", studentID);
+        studentRecordData.put("studentQuizScoreID",studentRecord.getId());
+        Log.d(TAG, quizID + " " + score + " " + studentName + " " + studentID);
+        studentRecord.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                completeListener.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                completeListener.onFailure();
+            }
+        });
+    }
 
     public static void createQuestionName(String questionName,String quizIDD, String optionA, String optionB,
                                           String optionC, String optionD, String answer, MyCompleteListener completeListener){
@@ -67,9 +91,6 @@ public class DbQuery {
             @Override
             public void onFailure(@NonNull Exception e) { completeListener.onFailure(); }
         });
-
-
-
     }
     public static void createStudentData(String email, String fullName, String schoolId, MyCompleteListener completeListener){
 
@@ -173,7 +194,7 @@ public class DbQuery {
     }
 
 
-    public static void joinClass(String classID, String studentID, MyCompleteListener completeListener){
+    public static void joinClass(String classID, String studentID, String studentName, MyCompleteListener completeListener){
 
         DocumentReference classesRef = FirebaseFirestore.getInstance()
                 .collection("CLASSES")
@@ -186,7 +207,7 @@ public class DbQuery {
 
                 CollectionReference classRef = app_fireStore.collection("STUDENTS");
 
-                classRef.add(new JoinClasses(classID, studentID, className, classSection));
+                classRef.add(new JoinClasses(classID, studentID, studentName, className, classSection));
                 completeListener.onSuccess();
             }
         }).addOnFailureListener(new OnFailureListener() {
