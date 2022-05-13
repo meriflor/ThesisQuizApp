@@ -44,23 +44,8 @@ public class IntroPage extends AppCompatActivity {
 
     }
 
-
-    /*private void signedInUser() {
-        FirebaseUser userID = app_auth.getCurrentUser();
-        DocumentReference userType = DbQuery.app_fireStore.collection("USERS").document(userID.getUid());
-        userType.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
-                if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    startActivity(new Intent(IntroPage.this, Homepage.class));
-                    finish();
-                }
-                else if(documentSnapshot.getString("userType").equals("Student")) {
-                    startActivity(new Intent(IntroPage.this, Homepage.class));
-                    finish();
-                }
-            }
-        });
-    }*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

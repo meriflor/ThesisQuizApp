@@ -20,6 +20,11 @@ public class CreateQuestionAdapter  extends FirestoreRecyclerAdapter<QuestionMod
     @Override
     protected void onBindViewHolder(@NonNull QuestionHolder questionHolder, int i, @NonNull QuestionModel questionModel) {
         questionHolder.questionName.setText(questionModel.getQuestion());
+        questionHolder.optionA.setText("a. " + questionModel.getOptionA());
+        questionHolder.optionB.setText("b. " + questionModel.getOptionB());
+        questionHolder.optionC.setText("c. " + questionModel.getOptionC());
+        questionHolder.optionD.setText("d. " + questionModel.getOptionD());
+        questionHolder.answer.setText("Answer: " + questionModel.getAnswer());
     }
 
     @NonNull
@@ -31,10 +36,15 @@ public class CreateQuestionAdapter  extends FirestoreRecyclerAdapter<QuestionMod
     }
 
     public class QuestionHolder extends RecyclerView.ViewHolder {
-        TextView questionName;
+        TextView questionName, optionA, optionB, optionC, optionD, answer;
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
             questionName = itemView.findViewById(R.id.tv_questionName);
+            optionA = itemView.findViewById(R.id.tv_optionA);
+            optionB = itemView.findViewById(R.id.tv_optionB);
+            optionC = itemView.findViewById(R.id.tv_optionC);
+            optionD = itemView.findViewById(R.id.tv_optionD);
+            answer = itemView.findViewById(R.id.tv_answer);
         }
     }
 }

@@ -18,6 +18,77 @@
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
 
+    <EditText
+        android:id="@+id/et_optionA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="Option A"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+    <EditText
+        android:id="@+id/et_optionB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="Option B"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+    <EditText
+        android:id="@+id/et_optionC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="Option C"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+    <EditText
+        android:id="@+id/et_optionD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/green"
+        android:hint="Option D"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/et_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/green"
+        android:hint="Answer"
+        android:minHeight="48dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

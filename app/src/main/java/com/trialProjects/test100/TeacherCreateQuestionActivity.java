@@ -72,11 +72,18 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialogBuilder = new AlertDialog.Builder(TeacherCreateQuestionActivity.this);
                 View createQuestionName = getLayoutInflater().inflate(R.layout.popup_window_create_question, null);
-                EditText questionName;
+                EditText questionName, etOptionA, etOptionB, etOptionC, etOptionD, etAnswer;
                 Button btn_create_question, btn_cancel;
+
                 questionName = createQuestionName.findViewById(R.id.et_createQuestionName);
+                etOptionA = createQuestionName.findViewById(R.id.et_optionA);
+                etOptionB = createQuestionName.findViewById(R.id.et_optionB);
+                etOptionC = createQuestionName.findViewById(R.id.et_optionC);
+                etOptionD = createQuestionName.findViewById(R.id.et_optionD);
+                etAnswer = createQuestionName.findViewById(R.id.et_answer);
                 btn_create_question = createQuestionName.findViewById(R.id.btn_create_question_name);
                 btn_cancel = createQuestionName.findViewById(R.id.btnCancelCreateQuestion);
+
                 dialogBuilder.setView(createQuestionName);
                 dialog = dialogBuilder.create();
                 dialog.show();
@@ -84,13 +91,17 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                 btn_create_question.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                            String questionname = questionName.getText().toString().trim();
-                        if(questionname.isEmpty())
-                        {
-                            Toast.makeText(TeacherCreateQuestionActivity.this,"Please enter the class name and section",Toast.LENGTH_SHORT).show();
+                        String questionname = questionName.getText().toString().trim();
+                        String optionA = etOptionA.getText().toString().trim();
+                        String optionB = etOptionB.getText().toString().trim();
+                        String optionC = etOptionC.getText().toString().trim();
+                        String optionD = etOptionD.getText().toString().trim();
+                        String answer = etAnswer.getText().toString().trim();
+                        if(questionname.isEmpty() || optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty() || answer.isEmpty()) {
+                            Toast.makeText(TeacherCreateQuestionActivity.this,"Please fill all the missing fields",Toast.LENGTH_SHORT).show();
                             return;
                         }else{
-                            DbQuery.createQuestionName(questionname,quizID, new MyCompleteListener() {
+                            DbQuery.createQuestionName(questionname, quizID, optionA, optionB, optionC, optionD, answer, new MyCompleteListener() {
                                 @Override
                                 public void onSuccess() {
                                     Toast.makeText(TeacherCreateQuestionActivity.this,"Sucessfully Created.",Toast.LENGTH_SHORT).show();
@@ -103,7 +114,6 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                             });
                             dialog.dismiss();
                         }
-
                     }
                 }
                 );
@@ -113,7 +123,6 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
             }
         });
     }

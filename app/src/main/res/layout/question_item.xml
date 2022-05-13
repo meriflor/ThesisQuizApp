@@ -8,21 +8,67 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
             android:id="@+id/tv_questionName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"
             android:text="Question name"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="@color/black" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_optionA"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option A"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_optionB"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option B"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_optionC"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option C"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_optionD"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option D"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_answer"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Answer: "
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

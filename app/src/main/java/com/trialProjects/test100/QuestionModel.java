@@ -1,8 +1,9 @@
 package com.trialProjects.test100;
 
 public class QuestionModel {
-    private String questionid, question,optionA,optionB,optionC,optionD;
+    private String questionid, question, optionA, optionB, optionC, optionD;
     private int answer;
+
     public QuestionModel(){
 
     }
