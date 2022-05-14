@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test100">
         <activity
+            android:name=".Teacher.ScoreActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Teacher.StudentScoreActivity"
+            android:exported="true" />
+        <activity
             android:name=".Teacher.StudentListActivity"
             android:exported="true" />
         <activity

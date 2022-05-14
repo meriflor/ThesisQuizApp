@@ -84,6 +84,17 @@ private AlertDialog dialog;
 
         FloatingActionButton createQuizBtn = findViewById(R.id.createQuizBtn);
         FloatingActionButton btnStudentList = findViewById(R.id.student_List);
+        FloatingActionButton btnScore = findViewById(R.id.Score);
+
+        btnScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TeacherClassRoomActivity.this, StudentScoreActivity.class);
+                intent.putExtra(StudentScoreActivity.CLASSNAME, classNAME);
+                intent.putExtra(StudentScoreActivity.CLASSID, classID);
+                startActivity(intent);
+            }
+        });
 
         btnStudentList.setOnClickListener(new View.OnClickListener() {
             @Override

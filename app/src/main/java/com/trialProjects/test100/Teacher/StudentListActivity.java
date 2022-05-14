@@ -72,6 +72,7 @@ public class StudentListActivity extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
