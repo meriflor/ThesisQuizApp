@@ -32,18 +32,19 @@ public class DbQuery {
 
     public static void storeStudentRecord(String quizID, String score,
                                           String studentName, String studentID, MyCompleteListener completeListener){
-        DocumentReference studentRecord = app_fireStore.collection("STUDENTSCORE")
+        DocumentReference studentRecord = app_fireStore.collection("STUDENT_SCORE")
                 .document();
         Map<String, Object> studentRecordData = new HashMap<>();
         studentRecordData.put("quizID", quizID);
         studentRecordData.put("score", score);
-        studentRecordData.put("studentName", studentName);
         studentRecordData.put("studentID", studentID);
+        studentRecordData.put("studentName", studentName);
+        studentRecordData.put("attempt", true);
         studentRecordData.put("studentQuizScoreID",studentRecord.getId());
-        Log.d(TAG, quizID + " " + score + " " + studentName + " " + studentID);
-        studentRecord.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        Log.d(TAG, quizID + " " + score + " " + studentName + " " + studentID + " " + studentRecord.getId());
+        studentRecord.set(studentRecordData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onSuccess(Void unused) {
                 completeListener.onSuccess();
             }
         }).addOnFailureListener(new OnFailureListener() {

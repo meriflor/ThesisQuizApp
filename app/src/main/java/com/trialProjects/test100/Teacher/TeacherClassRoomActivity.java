@@ -1,5 +1,7 @@
 package com.trialProjects.test100.Teacher;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -80,6 +83,19 @@ private AlertDialog dialog;
         });
 
         FloatingActionButton createQuizBtn = findViewById(R.id.createQuizBtn);
+        FloatingActionButton btnStudentList = findViewById(R.id.student_List);
+
+        btnStudentList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TeacherClassRoomActivity.this, StudentListActivity.class);
+                intent.putExtra(StudentListActivity.CLASSID, classID);
+                Log.d(TAG, classID);
+                intent.putExtra(StudentListActivity.CLASSNAME, classNAME);
+                startActivity(intent);
+            }
+        });
+
         createQuizBtn.setOnClickListener(new View.OnClickListener() {
             EditText etCreateQuiz;
             Button btnCreateQuiz;
@@ -92,6 +108,7 @@ private AlertDialog dialog;
                     etCreateQuiz= createQuizView.findViewById(R.id.et_create_quiz);
 
                     btnCreateQuiz= createQuizView.findViewById(R.id.btn_create_quiz);
+
                     Button btnCancelQuiz;
                     btnCancelQuiz= createQuizView.findViewById(R.id.btn_cancel_quiz);
                     dialogBuilder.setView(createQuizView);

@@ -40,6 +40,27 @@
         android:layout_gravity="bottom|end">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/student_List"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/students_list_icon"
+            app:fab_size="mini"
+            app:fab_title="Student List" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/learningMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/files"
+            app:fab_size="mini"
+            app:fab_title="Learning Material" />
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/createQuizBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +79,24 @@
             app:fab_icon="@drawable/assignment_logo"
             app:fab_size="mini"
             app:fab_title="Create Assignment" />
+
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white"
+            app:fab_icon="@drawable/score_icon"
+            app:fab_size="mini"
+            app:fab_title="Quiz Score" />
+
+
+
+
+
+
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

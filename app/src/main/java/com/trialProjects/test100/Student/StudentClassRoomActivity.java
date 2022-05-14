@@ -11,10 +11,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.trialProjects.test100.R;
 
 public class StudentClassRoomActivity extends AppCompatActivity {
@@ -47,20 +53,43 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         //end of code
 
         app_fireStore = FirebaseFirestore.getInstance();
+
+
+//        CollectionReference ref = app_fireStore.collection("STUDENT_SCORE");
+//        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    QuerySnapshot querySnapshot = task.getResult();
+//                    for (QueryDocumentSnapshot doc: querySnapshot){
+//
+//                        if(doc.getString("quizID").equals()){
+//
+//                        }
+//
+////                        if(!doc.getString("studentID").equals(studentID) && !doc.getBoolean("attempt")){
+////
+////
+////                        }
+//                    }
+//                }
+//            }
+//        });
+
+
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef
                 .whereEqualTo("classId", classID)
+           //     .whereEqualTo()
                 .orderBy("quizId", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()
                 .setQuery(quizQuery, StudentQuizModel.class)
                 .build();
-
         adapter = new StudentQuizAdapter(options);
         RecyclerView studentQuizRecyclerView = findViewById(R.id.studentQuizRecyclerView);
         studentQuizRecyclerView.setHasFixedSize(true);
         studentQuizRecyclerView.setLayoutManager(new LinearLayoutManager(StudentClassRoomActivity.this));
         studentQuizRecyclerView.setAdapter(adapter);
-
 
         adapter.setOnItemClickListener(new StudentQuizAdapter.OnItemClickListener() {
             @Override
@@ -76,6 +105,7 @@ public class StudentClassRoomActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 
