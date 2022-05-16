@@ -3,9 +3,11 @@ package com.trialProjects.test100.Student;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,16 +70,29 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
 
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(StudentQuestionsActivity.this);
+        alertDialog.setTitle("Exit App");
+        alertDialog.setMessage("Do you want to exit app? Your progress won't be saved. You only have 1 attempt.");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finishAffinity();
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
     private void getQuestion() {
         questionList = new ArrayList<>();
         Log.d(TAG, quizID);
-
-//        questionList.add(new StudentQuestionsModel("Rarararara", "a", "b", "c", "d", 1));
-//        questionList.add(new StudentQuestionsModel("adgagadgasdg", "asfsf", "ggggb", "cas", "d", 1));
-//        questionList.add(new StudentQuestionsModel("Raraerwerwere  feferarara", "a", "asfsab", "ffc", "d", 1));
-//        Log.d(TAG, String.valueOf(questionList.size()));
-//        setQuestion();
-
 
         CollectionReference quesRef = firestore.collection("QUESTIONS");
         Query quesQuery = quesRef.whereEqualTo("quizId", quizID);

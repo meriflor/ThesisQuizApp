@@ -21,6 +21,28 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="#f4f4f4">
+
+            <TextView
+                android:id="@+id/tv_accessCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/img_copy"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_copy"/>
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/teacher_quiz_recyclerview"
             android:layout_width="match_parent"

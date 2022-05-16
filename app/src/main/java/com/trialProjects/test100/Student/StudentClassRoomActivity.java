@@ -55,26 +55,21 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         app_fireStore = FirebaseFirestore.getInstance();
 
 
-//        CollectionReference ref = app_fireStore.collection("STUDENT_SCORE");
-//        ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    QuerySnapshot querySnapshot = task.getResult();
-//                    for (QueryDocumentSnapshot doc: querySnapshot){
+//       CollectionReference qref = app_fireStore.collection("QUIZLIST");
+//       Query qQuery = qref
+//               .whereEqualTo("classId", classID);
+//       qQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//           @Override
+//           public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//               if(task.isSuccessful()){
+//                   QuerySnapshot querySnapshot = task.getResult();
+//                   for(QueryDocumentSnapshot doc: querySnapshot){
+//                       String quizID = doc.getString("quizId");
 //
-//                        if(doc.getString("quizID").equals()){
-//
-//                        }
-//
-////                        if(!doc.getString("studentID").equals(studentID) && !doc.getBoolean("attempt")){
-////
-////
-////                        }
-//                    }
-//                }
-//            }
-//        });
+//                   }
+//               }
+//           }
+//       });
 
 
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
@@ -82,6 +77,7 @@ public class StudentClassRoomActivity extends AppCompatActivity {
                 .whereEqualTo("classId", classID)
            //     .whereEqualTo()
                 .orderBy("quizId", Query.Direction.ASCENDING);
+
         FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()
                 .setQuery(quizQuery, StudentQuizModel.class)
                 .build();

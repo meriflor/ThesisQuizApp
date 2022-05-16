@@ -9,6 +9,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,12 +35,15 @@ import com.trialProjects.test100.R;
 
 public class TeacherClassRoomActivity extends AppCompatActivity {
 
-public static final String CLASSNAME ="Class Name";
-public static final String CLASSROOMID = "Class Room Id";
-private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
-private TeacherQuizAdapter adapter;
-private AlertDialog.Builder dialogBuilder;
-private AlertDialog dialog;
+    public static final String CLASSNAME ="Class Name";
+    public static final String CLASSROOMID = "Class Room Id";
+    public static final String ACCESSCODE = "accessCode";
+    private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
+    private TeacherQuizAdapter adapter;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView tv_accessCode;
+    private ImageView clipBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +51,36 @@ private AlertDialog dialog;
         setContentView(R.layout.activity_teacher_class_room);
 
         String classNAME;
-        String classID;
+        String classID, accessCode;
 
         Intent intent = getIntent();
         classNAME = intent.getStringExtra(CLASSNAME);
         classID = intent.getStringExtra(CLASSROOMID);
+        accessCode = intent.getStringExtra(ACCESSCODE);
 
-        //added code
+        tv_accessCode = findViewById(R.id.tv_accessCode);
+        clipBoard = findViewById(R.id.img_copy);
+
+        //
+        tv_accessCode.setText(accessCode);
+        clipBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Text", tv_accessCode.getText().toString());
+                clipboardManager.setPrimaryClip(clipData);
+                clipBoard.setImageDrawable(getResources().getDrawable(R.drawable.icon_copied));
+                Toast.makeText(TeacherClassRoomActivity.this, "Text copied to clipboard",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //Toolbar
         Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(classNAME);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //end of code
 
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef

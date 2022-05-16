@@ -10,8 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.trialProjects.test100.R;
+
+import java.util.Collection;
 
 public class StudentQuizAdapter extends FirestoreRecyclerAdapter<StudentQuizModel, StudentQuizAdapter.QuizHolder> {
 
@@ -54,7 +59,6 @@ public class StudentQuizAdapter extends FirestoreRecyclerAdapter<StudentQuizMode
                     }
                 }
             });
-
         }
     }
 }

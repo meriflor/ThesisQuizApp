@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -41,6 +42,7 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
     private CollectionReference classesRef = app_fireStore.collection("CLASSES");
     private AddClassesAdapter adapter;
     private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -80,9 +82,11 @@ public class FragmentClasses_Teacher extends Fragment implements AddClassesAdapt
                 String classroomID = documentSnapshot.getId().toString();
                 String TeacherID =documentSnapshot.getString("teacherID");
                 String className = documentSnapshot.getString("className");
+                String accessCode = documentSnapshot.getString("accessCode");
                 Intent intent = new Intent(getContext(), TeacherClassRoomActivity.class);
                 intent.putExtra(TeacherClassRoomActivity.CLASSNAME,className);
                 intent.putExtra(TeacherClassRoomActivity.CLASSROOMID,classroomID);
+                intent.putExtra(TeacherClassRoomActivity.ACCESSCODE,accessCode);
                 startActivity(intent);
             }
         });
