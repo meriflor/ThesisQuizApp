@@ -74,25 +74,66 @@ public class DbQuery {
             @Override
             public void onFailure(@NonNull Exception e) { completeListener.onFailure(); }
         });
-
-
-
     }
 
-    public static void createQuizName(String quizname, String classid, MyCompleteListener completeListener){
+    public static void createQuizName(String quizname, String classid, String teacherID, String className, MyCompleteListener completeListener){
         DocumentReference quizList = app_fireStore.collection("QUIZLIST").document();
         Map<String, Object> quizData = new HashMap<>();
         quizData.put("quizName",quizname);
         quizData.put("classId",classid);
         quizData.put("quizId",quizList.getId());
+        quizData.put("teacherID", teacherID);
+        quizData.put("className", className);
+        Log.d(TAG, quizList.getId());
         quizList.set(quizData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void unused) { completeListener.onSuccess(); }
+            public void onSuccess(Void unused) {
+                completeListener.onSuccess();
+
+            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) { completeListener.onFailure(); }
         });
+
+
+        CollectionReference studRef = FirebaseFirestore.getInstance().collection("STUDENTS");
+        Query query = studRef.whereEqualTo("classID", classid);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    for (QueryDocumentSnapshot doc: querySnapshot){
+                        String studentID = doc.getString("studentID");
+
+                        DocumentReference studQuizRef = FirebaseFirestore.getInstance().collection("STUDENT_QUIZ")
+                                .document();
+                        Map<String, Object> studQuizData = new HashMap<>();
+                        studQuizData.put("classID", classid);
+                        studQuizData.put("studentID", studentID);
+                        studQuizData.put("teacherID", teacherID);
+                        studQuizData.put("quizID", quizList.getId());
+                        studQuizData.put("quizName", quizname);
+                        studQuizData.put("attempt", false);
+                        studQuizData.put("score", "0");
+
+                        studQuizRef.set(studQuizData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Log.d(TAG, "Successfully loaded the " + quizname + " file");
+                                }else{
+                                    Log.d(TAG, "Error Occurred");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
+
     public static void createStudentData(String email, String fullName, String schoolId, MyCompleteListener completeListener){
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -128,7 +169,7 @@ public class DbQuery {
         });
     }
 
-    public static void createClass(String name, String section, MyCompleteListener completeListener) {
+    public static void createClass(String name, String section, String teacherName, MyCompleteListener completeListener) {
 
         String teacherID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DocumentReference classRef = app_fireStore
@@ -141,6 +182,7 @@ public class DbQuery {
         classes.setTeacherID(teacherID);
         classes.setClassSection(section);
         classes.setAccessCode(classRef.getId());
+        classes.setTeacherName(teacherName);
 
         classRef.set(classes).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -220,4 +262,42 @@ public class DbQuery {
 
     }
 
+    public static void joinUpdateQuiz(String classID, String studentID, MyCompleteListener completeListener) {
+        CollectionReference ref = app_fireStore.collection("QUIZLIST");
+        Query query = ref.whereEqualTo("classId", classID);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot querySnapshot = task.getResult();
+                    for (QueryDocumentSnapshot doc: querySnapshot){
+                        String quizName = doc.getString("quizName");
+                        String quizID = doc.getString("quizId");
+                        String teacherID = doc.getString("teacherID");
+                        DocumentReference studQuizRef = app_fireStore.collection("STUDENT_QUIZ")
+                                .document();
+                        Map<String, Object> studQuizData = new HashMap<>();
+                        studQuizData.put("classID", classID);
+                        studQuizData.put("studentID", studentID);
+                        studQuizData.put("teacherID", teacherID);
+                        studQuizData.put("quizID", quizID);
+                        studQuizData.put("quizName", quizName);
+                        studQuizData.put("attempt", false);
+                        studQuizData.put("score", "0");
+
+                        studQuizRef.set(studQuizData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Log.d(TAG, "Successfully loaded the " + quizName + " file");
+                                }else{
+                                    Log.d(TAG, "Error Occurred");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 }

@@ -23,6 +23,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:src="@drawable/ic_join_class"
+            android:backgroundTint="@color/green"
             app:fabSize="normal" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,14 +1,19 @@
 package com.trialProjects.test100.Student;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,38 +50,20 @@ public class StudentClassRoomActivity extends AppCompatActivity {
         studentName = intent.getStringExtra(STUDENTNAME);
         studentID = intent.getStringExtra(STUDENTID);
 
-        //added code
+        //Toolbar
         Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(classNAME);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //end of code
 
         app_fireStore = FirebaseFirestore.getInstance();
 
-
-//       CollectionReference qref = app_fireStore.collection("QUIZLIST");
-//       Query qQuery = qref
-//               .whereEqualTo("classId", classID);
-//       qQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//           @Override
-//           public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//               if(task.isSuccessful()){
-//                   QuerySnapshot querySnapshot = task.getResult();
-//                   for(QueryDocumentSnapshot doc: querySnapshot){
-//                       String quizID = doc.getString("quizId");
-//
-//                   }
-//               }
-//           }
-//       });
-
-
-        CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
+        CollectionReference quizRef = app_fireStore.collection("STUDENT_QUIZ");
         Query quizQuery = quizRef
-                .whereEqualTo("classId", classID)
-           //     .whereEqualTo()
-                .orderBy("quizId", Query.Direction.ASCENDING);
+                .whereEqualTo("studentID", studentID)
+                .whereEqualTo("attempt", false)
+                .whereEqualTo("classID", classID)
+                .orderBy("quizName", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()
                 .setQuery(quizQuery, StudentQuizModel.class)
@@ -91,14 +78,37 @@ public class StudentClassRoomActivity extends AppCompatActivity {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 StudentQuizModel studentQuizModel = documentSnapshot.toObject(StudentQuizModel.class);
-                String quizID = documentSnapshot.getString("quizId");
+                String quizID = documentSnapshot.getString("quizID");
                 String quizName = documentSnapshot.getString("quizName");
-                Intent intent = new Intent(StudentClassRoomActivity.this, StudentQuestionsActivity.class);
-                intent.putExtra(StudentQuestionsActivity.QUIZID, quizID);
-                intent.putExtra(StudentQuestionsActivity.QUIZNAME, quizName);
-                intent.putExtra(StudentQuestionsActivity.STUDENTNAME, studentName);
-                intent.putExtra(StudentQuestionsActivity.STUDENTID, studentID);
-                startActivity(intent);
+                String studentQuizID = documentSnapshot.getId();
+
+                Log.d(TAG, quizID + " what is this?" + quizName);
+
+                CollectionReference ref = app_fireStore.collection("QUESTIONS");
+                ref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+                            for (QueryDocumentSnapshot doc: querySnapshot){
+                                if(doc.getString("quizId").equals(quizID)){
+                                    Log.d(TAG, doc.getString("quizId") + " " + quizID);
+                                    Intent intent = new Intent(StudentClassRoomActivity.this, StudentQuestionsActivity.class);
+                                    intent.putExtra(StudentQuestionsActivity.QUIZID, quizID);
+                                    intent.putExtra(StudentQuestionsActivity.QUIZNAME, quizName);
+                                    intent.putExtra(StudentQuestionsActivity.STUDENTNAME, studentName);
+                                    intent.putExtra(StudentQuestionsActivity.STUDENTID, studentID);
+                                    intent.putExtra(StudentQuestionsActivity.STUDENTQUIZID, studentQuizID);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                            Toast.makeText(StudentClassRoomActivity.this,
+                                    "You are not allowed to take this quiz yet.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 

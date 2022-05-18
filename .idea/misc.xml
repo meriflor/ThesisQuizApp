@@ -61,6 +61,20 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp01/app/src/main/res/layout/student_item.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp01/app/src/main/res/layout/student_score_item.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp01/app/src/main/res/menu/homepage_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/drawable/icon_delete.xml" value="0.140625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/activity_registration.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/activity_student_questions.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/activity_teacher_create_question.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/class_item.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/fragment_classes__student.xml" value="0.16" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/loading.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/nav_header.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/pop_up_window_create.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/pop_up_window_create_quiz.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/pop_up_window_join.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/popup_window_create_question.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/ThesisQuizApp03/app/src/main/res/layout/quiz_item.xml" value="0.25" />
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/activity_homepage.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/activity_questions.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/activity_student_class_room.xml" value="0.16259057971014493" />

@@ -34,17 +34,6 @@
             android:text="Class Section"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:id="@+id/tv_access_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_class_section"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Access Code"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textIsSelectable="true" />
 
     </RelativeLayout>
 

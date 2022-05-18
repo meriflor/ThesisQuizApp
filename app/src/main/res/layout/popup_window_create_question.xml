@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/gradient_color"
+    android:padding="20dp"
     android:orientation="vertical">
 
     <EditText
@@ -14,7 +15,7 @@
         android:hint="Create Question Name"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
 
@@ -29,7 +30,7 @@
         android:hint="Option A"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
     <EditText
@@ -43,7 +44,7 @@
         android:hint="Option B"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
     <EditText
@@ -57,7 +58,7 @@
         android:hint="Option C"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
     <EditText
@@ -72,7 +73,7 @@
         android:hint="Option D"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
 
@@ -85,7 +86,7 @@
         android:hint="Answer"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"/>
 

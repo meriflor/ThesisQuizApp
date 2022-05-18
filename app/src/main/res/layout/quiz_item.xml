@@ -19,10 +19,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:ellipsize="end"
+            android:fontFamily="sans-serif"
             android:maxLines="1"
             android:text="Quiz name"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

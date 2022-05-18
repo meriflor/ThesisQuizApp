@@ -7,8 +7,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,26 +23,31 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.trialProjects.test100.R;
+import com.trialProjects.test100.activities.Registration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentQuestionsActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String QUIZNAME = "Quiz Name";
     public static final String STUDENTNAME = "Student name";
     public static final String STUDENTID = "studID";
+    public static final String STUDENTQUIZID = "studquizID";
     public static String QUIZID = "QuizID";
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private TextView questionCount, question;
     private Button optionA, optionB, optionC, optionD;
     private List<StudentQuestionsModel> questionList;
-    private String quizID, quizName, studentName, studentID;
+    private String quizID, quizName, studentName, studentID, studentQuizID;
     int quesNum;
     int score;
 
@@ -53,6 +61,7 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
         quizName = intent.getStringExtra(QUIZNAME);
         studentName = intent.getStringExtra(STUDENTNAME);
         studentID = intent.getStringExtra(STUDENTID);
+        studentQuizID = intent.getStringExtra(STUDENTQUIZID);
 
         questionCount = findViewById(R.id.question_count);
         question = findViewById(R.id.question_name);
@@ -67,6 +76,28 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
         optionD.setOnClickListener(this);
 
         getQuestion();
+        updateStudentQuiz(studentQuizID);
+
+    }
+
+    private void updateStudentQuiz(String studentQuizID) {
+        DocumentReference studRef = FirebaseFirestore.getInstance()
+                .collection("STUDENT_QUIZ")
+                .document(studentQuizID);
+        Map<String, Object> data = new HashMap<>();
+        data.put("attempt", true);
+        data.put("studentName", studentName);
+        studRef.update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "attempt has now set to " + true);
+                }
+                else{
+                    Log.d(TAG, "Error Occurred");
+                }
+            }
+        });
 
     }
 
@@ -91,6 +122,12 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
     }
 
     private void getQuestion() {
+
+        Dialog dialog = new Dialog(StudentQuestionsActivity.this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.loading);
+        dialog.show();
+
         questionList = new ArrayList<>();
         Log.d(TAG, quizID);
 
@@ -100,6 +137,7 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
+                    dialog.dismiss();
                     QuerySnapshot questions = task.getResult();
                     for(QueryDocumentSnapshot doc: questions){
                         questionList.add(new StudentQuestionsModel(
@@ -185,6 +223,7 @@ public class StudentQuestionsActivity extends AppCompatActivity implements View.
             intent.putExtra(StudentResultActivity.STUDENTNAME, studentName);
             intent.putExtra(StudentResultActivity.QUIZID, quizID);
             intent.putExtra(StudentResultActivity.STUDENTID, studentID);
+            intent.putExtra(StudentResultActivity.STUDENTQUIZID, studentQuizID);
             startActivity(intent);
         }
     }

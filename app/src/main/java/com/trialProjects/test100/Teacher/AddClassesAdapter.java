@@ -1,15 +1,10 @@
 package com.trialProjects.test100.Teacher;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +24,6 @@ public class AddClassesAdapter extends FirestoreRecyclerAdapter<AddClasses, AddC
     protected void onBindViewHolder(@NonNull ClassesHolder classesHolder, int i, @NonNull AddClasses classes) {
         classesHolder.className.setText(classes.getClassName());
         classesHolder.classSection.setText(classes.getClassSection());
-        classesHolder.accessCode.setText(classes.getAccessCode());
     }
 
     @NonNull
@@ -48,13 +42,12 @@ public class AddClassesAdapter extends FirestoreRecyclerAdapter<AddClasses, AddC
 
 
     class ClassesHolder extends RecyclerView.ViewHolder{
-        TextView className, classSection, accessCode;
+        TextView className, classSection;
 
         public ClassesHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             className = itemView.findViewById(R.id.tv_class_name);
             classSection = itemView.findViewById(R.id.tv_class_section);
-            accessCode = itemView.findViewById(R.id.tv_access_code);
 
             //sunday
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -2,13 +2,6 @@ package com.trialProjects.test100.Teacher;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -22,6 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -38,30 +38,32 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
     public static final String CLASSNAME ="Class Name";
     public static final String CLASSROOMID = "Class Room Id";
     public static final String ACCESSCODE = "accessCode";
+    public static final String TEACHERID = "teacherID";
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private TeacherQuizAdapter adapter;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private TextView tv_accessCode;
     private ImageView clipBoard;
+    private String teacherID, className;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_class_room);
 
-        String classNAME;
         String classID, accessCode;
 
         Intent intent = getIntent();
-        classNAME = intent.getStringExtra(CLASSNAME);
+        className = intent.getStringExtra(CLASSNAME);
         classID = intent.getStringExtra(CLASSROOMID);
         accessCode = intent.getStringExtra(ACCESSCODE);
+        teacherID = intent.getStringExtra(TEACHERID);
 
         tv_accessCode = findViewById(R.id.tv_accessCode);
         clipBoard = findViewById(R.id.img_copy);
 
-        //
+        //copy to clipboard
         tv_accessCode.setText(accessCode);
         clipBoard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,13 +77,13 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             }
         });
 
-
         //Toolbar
         Toolbar toolbar = findViewById(R.id.student_classroomToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(classNAME);
+        getSupportActionBar().setTitle(className);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Query for Recyclerview
         CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
         Query quizQuery = quizRef
                 .whereEqualTo("classId", classID)
@@ -95,6 +97,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(TeacherClassRoomActivity.this));
         recyclerView.setAdapter(adapter);
 
+        //onclick
         adapter.setOnItemClickListener(new TeacherQuizAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
@@ -108,6 +111,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             }
         });
 
+        //floating buttons
         FloatingActionButton createQuizBtn = findViewById(R.id.createQuizBtn);
         FloatingActionButton btnStudentList = findViewById(R.id.student_List);
         FloatingActionButton btnScore = findViewById(R.id.Score);
@@ -116,7 +120,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TeacherClassRoomActivity.this, StudentScoreActivity.class);
-                intent.putExtra(StudentScoreActivity.CLASSNAME, classNAME);
+                intent.putExtra(StudentScoreActivity.CLASSNAME, className);
                 intent.putExtra(StudentScoreActivity.CLASSID, classID);
                 startActivity(intent);
             }
@@ -128,7 +132,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent(TeacherClassRoomActivity.this, StudentListActivity.class);
                 intent.putExtra(StudentListActivity.CLASSID, classID);
                 Log.d(TAG, classID);
-                intent.putExtra(StudentListActivity.CLASSNAME, classNAME);
+                intent.putExtra(StudentListActivity.CLASSNAME, className);
                 startActivity(intent);
             }
         });
@@ -143,11 +147,9 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
                     View createQuizView = getLayoutInflater().inflate(R.layout.pop_up_window_create_quiz, null);
 
                     etCreateQuiz= createQuizView.findViewById(R.id.et_create_quiz);
-
                     btnCreateQuiz= createQuizView.findViewById(R.id.btn_create_quiz);
 
-                    Button btnCancelQuiz;
-                    btnCancelQuiz= createQuizView.findViewById(R.id.btn_cancel_quiz);
+                    Button btnCancelQuiz = createQuizView.findViewById(R.id.btn_cancel_quiz);
                     dialogBuilder.setView(createQuizView);
                     dialog = dialogBuilder.create();
                     dialog.show();
@@ -183,8 +185,9 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             }
         });
     }
+
     public void addNewQuiz(String quizName, String classID){
-        DbQuery.createQuizName(quizName, classID, new MyCompleteListener() {
+        DbQuery.createQuizName(quizName, classID, teacherID, className, new MyCompleteListener() {
             @Override
             public void onSuccess() {
                 Toast.makeText(TeacherClassRoomActivity.this,"Created Sucessfully!",Toast.LENGTH_SHORT).show();
@@ -196,6 +199,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onStart() {
         super.onStart();

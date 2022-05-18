@@ -2,18 +2,19 @@ package com.trialProjects.test100.Teacher;
 
 public class AddClasses {
 
-    private String className, classSection, accessCode, teacherID, classID;
+    private String className, classSection, accessCode, teacherID, classID, teacherName;
 
     public AddClasses(){
 
     }
 
-    public AddClasses(String className, String classSection, String accessCode, String teacherID, String classID){
+    public AddClasses(String className, String classSection, String accessCode, String teacherID, String classID, String teacherName){
         this.className = className;
         this.classSection = classSection;
         this.accessCode = accessCode;
         this.teacherID = teacherID;
         this.classID = classID;
+        this.teacherName = teacherName;
     }
 
     public String getClassName() {
@@ -34,6 +35,14 @@ public class AddClasses {
 
     public String getClassID() {
         return classID;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public void setClassName(String className) {

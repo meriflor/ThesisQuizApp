@@ -4,13 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -146,7 +145,6 @@ public class FragmentClasses_Student extends Fragment {
     }
 
     private void checkClassExists(String classID) {
-        String accessCode = classID;
         DbQuery.checkClassExist(classID, new MyCompleteListener() {
             @Override
             public void onSuccess() {
@@ -190,7 +188,8 @@ public class FragmentClasses_Student extends Fragment {
                     DbQuery.joinClass(classID, studentID, studentName, new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
-                            Log.d(TAG, "Class joined");
+                            Toast.makeText(getContext(), "Class joined",
+                                    Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -198,10 +197,21 @@ public class FragmentClasses_Student extends Fragment {
                             Log.d(TAG, "Error occurred");
                         }
                     });
+
+                    DbQuery.joinUpdateQuiz(classID, studentID, new MyCompleteListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "Quiz loaded successfully");
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Log.d(TAG, "Error Occurred");
+                        }
+                    });
                 }
             }
         });
-
 
     }
 }

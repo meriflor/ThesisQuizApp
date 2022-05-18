@@ -3,6 +3,8 @@ package com.trialProjects.test100.UserActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -22,12 +25,17 @@ import com.trialProjects.test100.FirebaseServices.DbQuery;
 import com.trialProjects.test100.R;
 import com.trialProjects.test100.Student.FragmentClasses_Student;
 import com.trialProjects.test100.Teacher.FragmentClasses_Teacher;
-import com.trialProjects.test100.activities.Registration;
+import com.trialProjects.test100.activities.SignIn;
 
 public class Homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    public static final String FULLNAME = "fullName";
+    public static final String EMAIL = "email";
     private DrawerLayout drawer;
-    FirebaseAuth app_auth;
+    private NavigationView navigationView;
+
+    private FirebaseAuth app_auth;
+    private FirebaseFirestore app_firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +46,14 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         setSupportActionBar(toolbar);
 
         app_auth = FirebaseAuth.getInstance();
-        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
+        app_firestore = FirebaseFirestore.getInstance();
+
+        Intent intent = getIntent();
+        String fullName = intent.getStringExtra(FULLNAME);
+        String email = intent.getStringExtra(EMAIL);
 
         drawer = findViewById(R.id.teacher_drawer_Layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.nav_open_drawer, R.string.nav_close_drawer);
@@ -49,11 +61,24 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
         toggle.syncState();
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FragmentHome()).commit();
+            openFragment(new FragmentHome());
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
+        getuserData(fullName, email);
     }
+
+    private void getuserData(String fullName, String email) {
+        View headerView = navigationView.getHeaderView(0);
+        TextView tv_fullName, tv_email;
+
+        tv_fullName = headerView.findViewById(R.id.user_name);
+        tv_email = headerView.findViewById(R.id.user_email);
+
+        tv_fullName.setText(fullName);
+        tv_email.setText(email);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -68,12 +93,10 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentHome()).commit();
+                openFragment(new FragmentHome());
                 break;
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentProfile()).commit();
+                openFragment(new FragmentProfile());
                 break;
             case R.id.nav_classes:
                 checkUserType();
@@ -88,7 +111,7 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
 
     public void logOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Registration.class));
+        startActivity(new Intent(getApplicationContext(), SignIn.class));
         finish();
     }
 
@@ -99,14 +122,17 @@ public class Homepage extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.getString("userType").equals("Teacher")) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new FragmentClasses_Teacher()).commit();
+                    openFragment(new FragmentClasses_Teacher());
                 }
                 else if(documentSnapshot.getString("userType").equals("Student")) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new FragmentClasses_Student()).commit();
+                    openFragment(new FragmentClasses_Student());
                 }
             }
         });
+    }
+
+    private void openFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                fragment).commit();
     }
 }

@@ -1,5 +1,7 @@
 package com.trialProjects.test100.Teacher;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,21 +9,41 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.trialProjects.test100.FirebaseServices.DbQuery;
 import com.trialProjects.test100.Listener.MyCompleteListener;
 import com.trialProjects.test100.R;
+import com.trialProjects.test100.UserActivity.Homepage;
+import com.trialProjects.test100.activities.Registration;
+
+import java.util.List;
 
 public class TeacherCreateQuestionActivity extends AppCompatActivity {
     public static final String QUIZNAME = "quizNAME";
@@ -30,7 +52,8 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private CreateQuestionAdapter adapter;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private ImageView quizDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +73,89 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(quizName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //end of code
+
+        quizDelete = findViewById(R.id.quizDelete);
+
+        quizDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(TeacherCreateQuestionActivity.this);
+                dialog.setTitle("Are you sure?");
+                dialog.setMessage("You are about to delete the Quiz.");
+                dialog.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseFirestore.getInstance().collection("QUIZLIST")
+                                        .document(quizID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(TeacherCreateQuestionActivity.this,
+                                                    "Quiz Deleted", Toast.LENGTH_SHORT).show();
+                                            FirebaseFirestore.getInstance().collection("QUESTIONS")
+                                                    .whereEqualTo("quizId", quizID)
+                                                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
+                                                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                                                    for(DocumentSnapshot snapshot: snapshotList){
+                                                        batch.delete(snapshot.getReference());
+                                                    }
+                                                    batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void unused) {
+                                                            Log.d(TAG, "Questions were deleted");
+
+                                                            FirebaseFirestore.getInstance().collection("STUDENT_QUIZ")
+                                                                    .whereEqualTo("quizID", quizID)
+                                                                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                                    WriteBatch batch = FirebaseFirestore.getInstance().batch();
+                                                                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                                                                    for(DocumentSnapshot snapshot: snapshotList){
+                                                                        batch.delete(snapshot.getReference());
+                                                                    }
+                                                                    batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void unused) {
+                                                                            Log.d(TAG, "Quizzes assigned for Students were deleted");
+                                                                            startActivity(new Intent(TeacherCreateQuestionActivity.this,
+                                                                                    Homepage.class));
+                                                                            finish();
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.d(TAG, "Error");
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }else{
+                                            Log.d(TAG, "Deleting Canceled");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                dialog.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = dialog.create();
+                alertDialog.show();
+            }
+        });
 
         CollectionReference questionNameRef = app_fireStore.collection("QUESTIONS");
         Query questionNameQuery = questionNameRef

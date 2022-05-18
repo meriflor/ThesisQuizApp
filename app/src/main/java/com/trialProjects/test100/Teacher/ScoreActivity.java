@@ -41,9 +41,10 @@ public class ScoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //end of code
 
-        CollectionReference scoreRef = firestore.collection("STUDENT_SCORE");
+        CollectionReference scoreRef = firestore.collection("STUDENT_QUIZ");
         Query scoreQuery = scoreRef
                 .whereEqualTo("quizID", quizID)
+                .whereEqualTo("attempt", true)
                 .orderBy("score", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ScoreModel> options = new FirestoreRecyclerOptions.Builder<ScoreModel>()
                 .setQuery(scoreQuery, ScoreModel.class)

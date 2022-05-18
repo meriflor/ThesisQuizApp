@@ -1,11 +1,14 @@
 package com.trialProjects.test100.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import static android.content.ContentValues.TAG;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,23 +17,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.trialProjects.test100.FirebaseServices.DbQuery;
-import com.trialProjects.test100.UserActivity.Homepage;
 import com.trialProjects.test100.Listener.MyCompleteListener;
 import com.trialProjects.test100.R;
+import com.trialProjects.test100.UserActivity.Homepage;
 
 public class Registration extends AppCompatActivity {
 
-    TextView tv_logIn;
-    Button btn_register;
-    EditText et_email, et_fullName, et_pass, et_rePass, et_schoolId;
-    Spinner spinner;
-    FirebaseAuth app_auth;
+    private TextView tv_logIn;
+    private Button btn_register;
+    private EditText et_email, et_fullName, et_pass, et_rePass, et_schoolId;
+    private Spinner spinner;
+    private FirebaseAuth app_auth;
+    private FirebaseFirestore app_fireStore;
 
     String userType, email, pass, fullName, rePass, schoolId;
 
@@ -50,7 +57,7 @@ public class Registration extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
 
         app_auth = FirebaseAuth.getInstance();
-        DbQuery.app_fireStore = FirebaseFirestore.getInstance();
+        app_fireStore = FirebaseFirestore.getInstance();
 
         //for Spinner-- list
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.userType, R.layout.support_simple_spinner_dropdown_item);
@@ -76,6 +83,10 @@ public class Registration extends AppCompatActivity {
                 schoolId = et_schoolId.getText().toString().trim();
                 rePass = et_rePass.getText().toString().trim();
 
+                Dialog dialog = new Dialog(Registration.this);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setContentView(R.layout.loading);
+
                 //conditions not met
                 if(TextUtils.isEmpty(email) || !email.contains("@")){
                     et_email.setError("Please enter your Email");
@@ -85,28 +96,35 @@ public class Registration extends AppCompatActivity {
                     et_pass.setError("Password must be 8 character");
                 }else if(rePass.isEmpty()||!rePass.equals(pass)) {
                     et_rePass.setError("Password don't match");
-                }else{
+                }else if(userType.equals("Select User Type")){
+                    showToast("Choose user type");
+                }
+
+                else{
+                    dialog.show();
                     //if whatever user selected then proceed to store user data to different user type.
                     if(userType.equals("Student")){
                         app_auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(Registration.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                    showToast("Registered Successfully");
                                     //create sa student user
                                     DbQuery.createStudentData(email, fullName, schoolId, new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {
-                                            startActivity(new Intent(Registration.this, Homepage.class));
-                                            finish();
+                                            intentPutExtra(email, fullName);
+                                            dialog.dismiss();
                                         }
                                         @Override
                                         public void onFailure() {
-                                            Toast.makeText(Registration.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                            showToast("Something went wrong!");
+                                            dialog.dismiss();
                                         }
                                     });
                                 }else{
-                                    Toast.makeText(Registration.this, "Error!", Toast.LENGTH_SHORT).show();
+                                    showToast("Error!");
+                                    dialog.dismiss();
                                 }
                             }
                         });
@@ -115,21 +133,23 @@ public class Registration extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(Registration.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                    showToast("Registered Successfully");
                                     //create sa teacher user
                                     DbQuery.createTeacherData(email, fullName, schoolId, new MyCompleteListener() {
                                         @Override
                                         public void onSuccess() {
-                                            startActivity(new Intent(Registration.this, Homepage.class));
-                                            finish();
+                                            intentPutExtra(email, fullName);
+                                            dialog.dismiss();
                                         }
                                         @Override
                                         public void onFailure() {
-                                            Toast.makeText(Registration.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                            showToast("Something went wrong!");
+                                            dialog.dismiss();
                                         }
                                     });
                                 }else{
-                                    Toast.makeText(Registration.this, "Error!", Toast.LENGTH_SHORT).show();
+                                    showToast("Error!");
+                                    dialog.dismiss();
                                 }
                             }
                         });
@@ -137,5 +157,20 @@ public class Registration extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showToast(String text) {
+        Toast.makeText(Registration.this, text,
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    private void intentPutExtra(String name, String email) {
+        Intent intent = new Intent(Registration.this, Homepage.class);
+        intent.putExtra(Homepage.FULLNAME, name);
+        intent.putExtra(Homepage.EMAIL, email);
+        Log.d(TAG, fullName + email);
+        startActivity(intent);
+        finish();
     }
 }
