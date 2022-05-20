@@ -27,14 +27,33 @@
             android:layout_marginEnd="20dp"/>
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="68dp"
+        android:layout_marginTop="8dp"
+        android:text="Public "
+        android:textOff="off"
+        android:textOn="on"
+        android:textSize="17sp"
+        android:thumb="@drawable/on_off_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teacher_quizToolbar"
+        app:showText="false"
+        app:track="@drawable/track" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/create_question_recyclerview"
-        android:layout_width="match_parent"
+        android:layout_width="413dp"
         android:layout_height="0dp"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_question"
-        app:layout_constraintTop_toBottomOf="@+id/teacher_quizToolbar"
-        tools:layout_editor_absoluteX="67dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/switchCompat"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_add_question"
