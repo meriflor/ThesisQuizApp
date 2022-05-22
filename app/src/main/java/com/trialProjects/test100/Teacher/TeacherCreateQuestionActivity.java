@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,17 +42,22 @@ import com.trialProjects.test100.R;
 import com.trialProjects.test100.UserActivity.Homepage;
 import com.trialProjects.test100.activities.Registration;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeacherCreateQuestionActivity extends AppCompatActivity {
     public static final String QUIZNAME = "quizNAME";
     public static final String QUIZID = "quizID";
+    public static final String CLASSID = "classID";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private CreateQuestionAdapter adapter;
     private RecyclerView recyclerView;
     private Button quizDelete;
+    private SwitchCompat switchCompat;
+    private String quizID, classID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +65,9 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_create_question);
 
         String quizName;
-        String quizID;
         Intent intent = getIntent();
         quizID = intent.getStringExtra(QUIZID);
+        classID = intent.getStringExtra(CLASSID);
         quizName = intent.getStringExtra(QUIZNAME);
         Button btnAddQuestion;
 
@@ -72,8 +78,26 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //end of code
 
-        quizDelete = findViewById(R.id.btn_delete_quiz);
+        //switch code
+        switchCompat = findViewById(R.id.switchCompat);
+        switchCompat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(switchCompat.isChecked()){
+                    switchCompat.setText("Public   ");
+                    showToast("Quiz is ready");
+                    setVisibility(true);
+                }else{
+                    switchCompat.setText("Private   ");
+                    showToast("Quiz is set to private");
+                    setVisibility(false);
+                }
+            }
+        });
+        getVisibility();
 
+        //quiz delete
+        quizDelete = findViewById(R.id.btn_delete_quiz);
         quizDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,9 +144,7 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                                                                         @Override
                                                                         public void onSuccess(Void unused) {
                                                                             Log.d(TAG, "Quizzes assigned for Students were deleted");
-                                                                            startActivity(new Intent(TeacherCreateQuestionActivity.this,
-                                                                                    Homepage.class));
-                                                                            finish();
+                                                                            onBackPressed();
                                                                         }
                                                                     });
                                                                 }
@@ -228,6 +250,67 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void getVisibility() {
+        DocumentReference vRef = app_fireStore.collection("QUIZLIST")
+                .document(quizID);
+        vRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Boolean visibility = documentSnapshot.getBoolean("visibility");
+                switchCompat.setChecked(visibility);
+            }
+        });
+    }
+
+    private void setVisibility(boolean visibility) {
+        DocumentReference quizRef = app_fireStore.collection("QUIZLIST")
+                .document(quizID);
+        Map<String, Object> vData = new HashMap<>();
+        vData.put("visibility", visibility);
+        quizRef.update(vData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "Quiz visibility updated");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, e.getMessage());
+            }
+        });
+
+        CollectionReference studQuizRef = app_fireStore.collection("STUDENT_QUIZ");
+        Query query = studQuizRef.whereEqualTo("classID", classID);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                WriteBatch batch = app_fireStore.batch();
+                Map<String, Object> data = new HashMap<>();
+                data.put("visibility", visibility);
+                List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                for(DocumentSnapshot documentSnapshot: snapshotList){
+                    batch.update(documentSnapshot.getReference(), data);
+                }
+                batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "visibility update");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "error");
+                    }
+                });
+            }
+        });
+    }
+
+    private void showToast(String text) {
+        Toast.makeText(TeacherCreateQuestionActivity.this, text,
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override

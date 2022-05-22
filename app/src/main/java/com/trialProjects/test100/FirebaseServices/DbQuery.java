@@ -28,32 +28,6 @@ import java.util.Map;
 public class DbQuery {
 
     public static FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
-    DocumentSnapshot lastAddedClass;
-
-    public static void storeStudentRecord(String quizID, String score,
-                                          String studentName, String studentID, MyCompleteListener completeListener){
-        DocumentReference studentRecord = app_fireStore.collection("STUDENT_SCORE")
-                .document();
-        Map<String, Object> studentRecordData = new HashMap<>();
-        studentRecordData.put("quizID", quizID);
-        studentRecordData.put("score", score);
-        studentRecordData.put("studentID", studentID);
-        studentRecordData.put("studentName", studentName);
-        studentRecordData.put("attempt", true);
-        studentRecordData.put("studentQuizScoreID",studentRecord.getId());
-        Log.d(TAG, quizID + " " + score + " " + studentName + " " + studentID + " " + studentRecord.getId());
-        studentRecord.set(studentRecordData).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                completeListener.onSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                completeListener.onFailure();
-            }
-        });
-    }
 
     public static void createQuestionName(String questionName,String quizIDD, String optionA, String optionB,
                                           String optionC, String optionD, String answer, MyCompleteListener completeListener){
@@ -84,6 +58,7 @@ public class DbQuery {
         quizData.put("quizId",quizList.getId());
         quizData.put("teacherID", teacherID);
         quizData.put("className", className);
+        quizData.put("visibility", false);
         Log.d(TAG, quizList.getId());
         quizList.set(quizData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -117,6 +92,7 @@ public class DbQuery {
                         studQuizData.put("quizName", quizname);
                         studQuizData.put("attempt", false);
                         studQuizData.put("score", "0");
+                        studQuizData.put("visibility", false);
 
                         studQuizRef.set(studQuizData).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -170,7 +146,6 @@ public class DbQuery {
     }
 
     public static void createClass(String name, String section, String teacherName, MyCompleteListener completeListener) {
-
         String teacherID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DocumentReference classRef = app_fireStore
                 .collection("CLASSES")
@@ -284,6 +259,7 @@ public class DbQuery {
                         studQuizData.put("quizName", quizName);
                         studQuizData.put("attempt", false);
                         studQuizData.put("score", "0");
+                        studQuizData.put("visibility", false);
 
                         studQuizRef.set(studQuizData).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

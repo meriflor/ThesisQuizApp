@@ -63,6 +63,7 @@ public class StudentClassRoomActivity extends AppCompatActivity {
                 .whereEqualTo("studentID", studentID)
                 .whereEqualTo("attempt", false)
                 .whereEqualTo("classID", classID)
+                .whereEqualTo("visibility", true)
                 .orderBy("quizName", Query.Direction.ASCENDING);
 
         FirestoreRecyclerOptions<StudentQuizModel> options = new FirestoreRecyclerOptions.Builder<StudentQuizModel>()

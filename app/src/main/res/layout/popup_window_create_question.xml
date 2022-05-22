@@ -83,12 +83,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/green"
+        android:inputType="number"
         android:hint="Answer"
         android:minHeight="48dp"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

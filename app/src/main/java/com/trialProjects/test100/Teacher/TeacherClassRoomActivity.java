@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,13 +26,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.trialProjects.test100.FirebaseServices.DbQuery;
 import com.trialProjects.test100.Listener.MyCompleteListener;
 import com.trialProjects.test100.R;
+
+import java.util.List;
 
 public class TeacherClassRoomActivity extends AppCompatActivity {
 
@@ -44,15 +54,13 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private TextView tv_accessCode;
-    private ImageView clipBoard;
-    private String teacherID, className;
+    private ImageView clipBoard, classDelete;
+    private String teacherID, className, classID, accessCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_class_room);
-
-        String classID, accessCode;
 
         Intent intent = getIntent();
         className = intent.getStringExtra(CLASSNAME);
@@ -74,6 +82,15 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
                 clipBoard.setImageDrawable(getResources().getDrawable(R.drawable.icon_copied));
                 Toast.makeText(TeacherClassRoomActivity.this, "Text copied to clipboard",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //delete class
+        classDelete = findViewById(R.id.classDelete);
+        classDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteClass();
             }
         });
 
@@ -107,6 +124,7 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
                 Intent intent = new Intent (TeacherClassRoomActivity.this,TeacherCreateQuestionActivity.class);
                 intent.putExtra(TeacherCreateQuestionActivity.QUIZNAME,quizName);
                 intent.putExtra(TeacherCreateQuestionActivity.QUIZID,quizid);
+                intent.putExtra(TeacherCreateQuestionActivity.CLASSID, classID);
                 startActivity(intent);
             }
         });
@@ -142,39 +160,36 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             Button btnCreateQuiz;
             @Override
             public void onClick(View view) {
-                showText("This is create quiz button");
-                    dialogBuilder = new AlertDialog.Builder(TeacherClassRoomActivity.this);
-                    View createQuizView = getLayoutInflater().inflate(R.layout.pop_up_window_create_quiz, null);
+                dialogBuilder = new AlertDialog.Builder(TeacherClassRoomActivity.this);
+                View createQuizView = getLayoutInflater().inflate(R.layout.pop_up_window_create_quiz, null);
 
-                    etCreateQuiz= createQuizView.findViewById(R.id.et_create_quiz);
-                    btnCreateQuiz= createQuizView.findViewById(R.id.btn_create_quiz);
+                etCreateQuiz= createQuizView.findViewById(R.id.et_create_quiz);
+                btnCreateQuiz= createQuizView.findViewById(R.id.btn_create_quiz);
 
-                    Button btnCancelQuiz = createQuizView.findViewById(R.id.btn_cancel_quiz);
-                    dialogBuilder.setView(createQuizView);
-                    dialog = dialogBuilder.create();
-                    dialog.show();
+                Button btnCancelQuiz = createQuizView.findViewById(R.id.btn_cancel_quiz);
+                dialogBuilder.setView(createQuizView);
+                dialog = dialogBuilder.create();
+                dialog.show();
 
-                    btnCreateQuiz.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            String quizName = etCreateQuiz.getText().toString().trim();
-                            if(quizName.isEmpty()){
-                                Toast.makeText(TeacherClassRoomActivity.this, "Please enter Quiz name or title",Toast.LENGTH_SHORT).show();
-                                return;
-                            }else{
-                                    addNewQuiz(quizName,classID);
-                                    dialog.dismiss();
-                            }
+                btnCreateQuiz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String quizName = etCreateQuiz.getText().toString().trim();
+                        if(quizName.isEmpty()){
+                            Toast.makeText(TeacherClassRoomActivity.this, "Please enter Quiz name or title",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else{
+                                addNewQuiz(quizName,classID);
+                                dialog.dismiss();
                         }
-                    });
-                    btnCancelQuiz.setOnClickListener(new View.OnClickListener() {
+                    }
+                });
+                btnCancelQuiz.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
-
-
             }
         });
         FloatingActionButton createAssignmentBtn = findViewById(R.id.createAssignmentBtn);
@@ -182,6 +197,117 @@ public class TeacherClassRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showText("This is create assignment button");
+            }
+        });
+    }
+
+    private void deleteClass() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TeacherClassRoomActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete, null);
+        dialogBuilder.setView(view);
+        AlertDialog dialog = dialogBuilder.create();
+        TextView title = view.findViewById(R.id.title);
+        TextView message = view.findViewById(R.id.message);
+        TextView delete = view.findViewById(R.id.delete);
+        TextView cancel = view.findViewById(R.id.cancel);
+        title.setText("Are you sure?");
+        message.setText("You are about to delete this class.");
+        dialog.show();
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference classRef = app_fireStore.collection("CLASSES")
+                        .document(classID);
+                classRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "Class delete");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Deleting class failed");
+                    }
+                });
+
+                CollectionReference quizRef = app_fireStore.collection("QUIZLIST");
+                Query quizQuery = quizRef.whereEqualTo("classId", classID);
+                quizQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        WriteBatch batch = app_fireStore.batch();
+                        List<DocumentSnapshot> snapshotList= queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot documentSnapshot: snapshotList){
+                            batch.delete(documentSnapshot.getReference());
+                        }
+                        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d(TAG, "Quizzes delete");
+                                }else{
+                                    Log.d(TAG, "Error");
+                                }
+                            }
+                        });
+                    }
+                });
+
+                CollectionReference studQuizRef = app_fireStore.collection("STUDENT_QUIZ");
+                Query studQuizQuery = studQuizRef.whereEqualTo("classID", classID);
+                studQuizQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        WriteBatch batch = app_fireStore.batch();
+                        List<DocumentSnapshot> snapshotList= queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot documentSnapshot: snapshotList){
+                            batch.delete(documentSnapshot.getReference());
+                        }
+                        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d(TAG, "Class quizzes delete");
+                                }else{
+                                    Log.d(TAG, "Error");
+                                }
+                            }
+                        });
+                    }
+                });
+
+                CollectionReference studRef = app_fireStore.collection("STUDENTS");
+                Query studQuery = studRef.whereEqualTo("classID", classID);
+                studQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        WriteBatch batch = app_fireStore.batch();
+                        List<DocumentSnapshot> snapshotList= queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot documentSnapshot: snapshotList){
+                            batch.delete(documentSnapshot.getReference());
+                        }
+                        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Log.d(TAG, "Class delete");
+                                }else{
+                                    Log.d(TAG, "Error");
+                                }
+                            }
+                        });
+                    }
+                });
+                onBackPressed();
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }
