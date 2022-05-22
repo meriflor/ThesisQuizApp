@@ -21,6 +21,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/teacher_recStudentList"
         android:layout_width="match_parent"
+        android:background="#ced6e0"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/teacher_studentListToolbar"
         app:layout_constraintStart_toStartOf="parent"

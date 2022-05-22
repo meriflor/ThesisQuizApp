@@ -10,7 +10,7 @@
         android:id="@+id/teacher_quizToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/gradient_color"
+        android:background="@color/green"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -18,6 +18,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="68dp"
+                android:text="Public "
+                android:textOff="off"
+                android:textOn="on"
+                android:layout_marginEnd="10dp"
+                android:textSize="17sp"
+                android:thumb="@drawable/on_off_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:showText="false"
+                app:track="@drawable/track" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+<!--
         <ImageView
             android:id="@+id/quizDelete"
             android:layout_width="wrap_content"
@@ -26,7 +51,8 @@
             android:src="@drawable/icon_delete"
             android:layout_marginEnd="20dp"/>
     </androidx.appcompat.widget.Toolbar>
-
+    -->
+<!--
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchCompat"
         android:layout_width="wrap_content"
@@ -38,22 +64,57 @@
         android:textSize="17sp"
         android:thumb="@drawable/on_off_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teacher_quizToolbar"
         app:showText="false"
         app:track="@drawable/track" />
+-->
+
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0be881"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teacher_quizToolbar">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Edit"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginRight="150dp"
+            />
+
+        <Button
+            android:id="@+id/btn_delete_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="DELETE"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/create_question_recyclerview"
-        android:layout_width="413dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
+        android:background="@color/appbackground"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchCompat"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/btn_add_question"

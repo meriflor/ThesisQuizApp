@@ -35,12 +35,14 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:gravity="center"
-            android:background="#f4f4f4">
+            android:background="#f1f2f6">
 
             <TextView
                 android:id="@+id/tv_accessCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="20sp"
                 android:layout_weight="1"/>
 
             <ImageView
@@ -55,7 +57,7 @@
             android:id="@+id/teacher_quiz_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#f4f4f4"
+            android:background="#ced6e0"
             android:orientation="vertical"/>
 
     </LinearLayout>

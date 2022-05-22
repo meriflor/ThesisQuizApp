@@ -11,43 +11,56 @@
         android:theme="@style/Theme.Test100">
         <activity
             android:name=".Teacher.ScoreActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".Teacher.StudentScoreActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Teacher.StudentListActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Student.StudentResultActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Teacher.TeacherCreateQuestionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Student.StudentClassRoomActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Student.StudentQuestionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Teacher.TeacherClassRoomActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UserActivity.Homepage"
             android:exported="true"
-            android:theme="@style/Theme.Test100.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.SignIn"
             android:exported="true"
-            android:theme="@style/Theme.Test100.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activities.Registration"
             android:exported="true"
-            android:theme="@style/Theme.Test100.NoActionBar" />
+            android:theme="@style/Theme.Test100.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UserActivity.IntroPage"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,13 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="20dp"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="5dp">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150sp"
+       android:gravity="center"
+        android:background="#ffffff"
         android:padding="20dp">
+
 
         <TextView
             android:id="@+id/tv_quizName"
@@ -19,11 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:ellipsize="end"
+            android:textAlignment="center"
             android:fontFamily="sans-serif"
-            android:maxLines="1"
             android:text="Quiz name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/black"/>
+            android:textColor="#2f3542"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

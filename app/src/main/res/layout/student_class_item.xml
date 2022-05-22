@@ -10,18 +10,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150sp"
         android:padding="20dp">
 
         <TextView
             android:id="@+id/studentClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
             android:text="Class Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            />
 
         <TextView
             android:id="@+id/studentClassSection"

@@ -20,7 +20,7 @@
         android:id="@+id/studentQuizRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f4f4f4">
+        android:background="#ced6e0">
 
     </androidx.recyclerview.widget.RecyclerView>
 

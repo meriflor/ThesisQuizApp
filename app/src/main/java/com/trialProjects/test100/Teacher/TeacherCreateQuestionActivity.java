@@ -20,8 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -53,7 +51,7 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private CreateQuestionAdapter adapter;
     private RecyclerView recyclerView;
-    private ImageView quizDelete;
+    private Button quizDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,7 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //end of code
 
-        quizDelete = findViewById(R.id.quizDelete);
+        quizDelete = findViewById(R.id.btn_delete_quiz);
 
         quizDelete.setOnClickListener(new View.OnClickListener() {
             @Override
