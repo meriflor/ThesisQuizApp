@@ -18,21 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical">
-
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchCompat"
                 android:layout_width="wrap_content"
-                android:layout_height="68dp"
+                android:layout_height="match_parent"
                 android:text="Public   "
                 android:textOff="off"
                 android:textOn="on"
+                android:layout_gravity="end"
                 android:checked="false"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="20dp"
                 android:textSize="17sp"
                 android:thumb="@drawable/on_off_btn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +35,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:showText="false"
                 app:track="@drawable/track" />
-        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 <!--
@@ -85,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/teacher_quizToolbar">
 
         <Button
+            android:id="@+id/btn_edit_quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"

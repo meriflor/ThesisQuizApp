@@ -10,11 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -33,14 +30,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.trialProjects.test100.FirebaseServices.DbQuery;
 import com.trialProjects.test100.Listener.MyCompleteListener;
 import com.trialProjects.test100.R;
-import com.trialProjects.test100.UserActivity.Homepage;
-import com.trialProjects.test100.activities.Registration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +49,7 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
     private FirebaseFirestore app_fireStore = FirebaseFirestore.getInstance();
     private CreateQuestionAdapter adapter;
     private RecyclerView recyclerView;
-    private Button quizDelete;
+    private Button quizDelete, quizEdit;
     private SwitchCompat switchCompat;
     private String quizID, classID;
 
@@ -74,6 +68,7 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
         //added code
         Toolbar toolbar = findViewById(R.id.teacher_quizToolbar);
         setSupportActionBar(toolbar);
+        Log.d(TAG, quizName);
         getSupportActionBar().setTitle(quizName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //end of code
@@ -177,6 +172,15 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
             }
         });
 
+        //edit Quiz
+        quizEdit = findViewById(R.id.btn_edit_quiz);
+        quizEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editQuiz();
+            }
+        });
+
         CollectionReference questionNameRef = app_fireStore.collection("QUESTIONS");
         Query questionNameQuery = questionNameRef
                 .whereEqualTo("quizId",quizID )
@@ -248,6 +252,76 @@ public class TeacherCreateQuestionActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+            }
+        });
+    }
+
+    private void editQuiz() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(TeacherCreateQuestionActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.pop_up_window_create_quiz, null);
+        dialogBuilder.setView(view);
+        AlertDialog dialog = dialogBuilder.create();
+        EditText et_quizName = view.findViewById(R.id.et_create_quiz);
+        Button edit = view.findViewById(R.id.btn_create_quiz);
+        Button cancel = view.findViewById(R.id.btn_cancel_quiz);
+
+        edit.setText("EDIT");
+        dialog.show();
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quizName = et_quizName.getText().toString().trim();
+
+                DocumentReference quizRef = app_fireStore.collection("QUIZLIST")
+                        .document(quizID);
+                Map<String, Object> quizData = new HashMap<>();
+                quizData.put("quizName", quizName);
+                quizRef.update(quizData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        showToast("Quiz name updated");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        showToast("Error");
+                    }
+                });
+
+                CollectionReference studQuizRef = app_fireStore.collection("STUDENT_QUIZ");
+                Query query = studQuizRef.whereEqualTo("quizID", quizID);
+                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        WriteBatch batch = app_fireStore.batch();
+                        Map<String, Object> qData = new HashMap<>();
+                        qData.put("quizName", quizName);
+                        List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot doc: snapshotList){
+                            batch.update(doc.getReference(),qData);
+                        }
+                        batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d(TAG, "Quiz deleted");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "Deleting quiz failed");
+                            }
+                        });
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }

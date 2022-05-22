@@ -88,19 +88,19 @@ public class Registration extends AppCompatActivity {
                 dialog.setContentView(R.layout.loading);
 
                 //conditions not met
-                if(TextUtils.isEmpty(email) || !email.contains("@")){
+                if(fullName.isEmpty()){
+                    et_fullName.setError("Please enter your name");
+                }else if(TextUtils.isEmpty(email) || !email.contains("@")){
                     et_email.setError("Please enter your Email");
-                }else if(TextUtils.isEmpty(pass)){
+                }else if(TextUtils.isEmpty(pass)) {
                     et_pass.setError("Please enter your Password");
-                }else if(pass.length() < 8){
+                }else if(pass.length() < 8) {
                     et_pass.setError("Password must be 8 character");
                 }else if(rePass.isEmpty()||!rePass.equals(pass)) {
                     et_rePass.setError("Password don't match");
                 }else if(userType.equals("Select User Type")){
                     showToast("Choose user type");
-                }
-
-                else{
+                }else{
                     dialog.show();
                     //if whatever user selected then proceed to store user data to different user type.
                     if(userType.equals("Student")){
