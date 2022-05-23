@@ -249,6 +249,7 @@ public class DbQuery {
                         String quizName = doc.getString("quizName");
                         String quizID = doc.getString("quizId");
                         String teacherID = doc.getString("teacherID");
+                        Boolean visibility = doc.getBoolean("visibility");
                         DocumentReference studQuizRef = app_fireStore.collection("STUDENT_QUIZ")
                                 .document();
                         Map<String, Object> studQuizData = new HashMap<>();
@@ -260,7 +261,7 @@ public class DbQuery {
                         studQuizData.put("quizName", quizName);
                         studQuizData.put("attempt", false);
                         studQuizData.put("score", "0");
-                        studQuizData.put("visibility", false);
+                        studQuizData.put("visibility", visibility);
 
                         studQuizRef.set(studQuizData).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
