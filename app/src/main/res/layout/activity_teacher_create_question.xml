@@ -6,38 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Teacher.TeacherCreateQuestionActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/teacher_quizToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/green"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchCompat"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Public   "
-                android:textOff="off"
-                android:textOn="on"
-                android:layout_gravity="end"
-                android:checked="false"
-                android:layout_marginEnd="20dp"
-                android:textSize="17sp"
-                android:thumb="@drawable/on_off_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:showText="false"
-                app:track="@drawable/track" />
-
-    </androidx.appcompat.widget.Toolbar>
-<!--
+    <!--
         <ImageView
             android:id="@+id/quizDelete"
             android:layout_width="wrap_content"
@@ -66,12 +35,46 @@
         app:track="@drawable/track" />
 -->
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/teacher_quizToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/green"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchCompat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:checked="false"
+            android:text="Public   "
+            android:textOff="off"
+            android:textOn="on"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:thumb="@drawable/on_off_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:showText="false"
+            app:track="@drawable/track" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:gravity="center"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0be881"
+        android:background="@color/gray"
         android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +87,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="Edit"
+            android:textStyle="normal"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_marginRight="150dp"
             />
@@ -96,34 +99,42 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="DELETE"
+            android:textStyle="normal"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:textColor="@color/white" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/create_question_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="10dp"
-        android:background="@color/appbackground"
+        android:layout_width="0dp"
+        android:layout_height="535dp"
+        android:background="@color/white"
+        android:padding="2dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_question"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.47" />
 
     <Button
         android:id="@+id/btn_add_question"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/green"
+        android:layout_marginStart="50dp"
+        android:paddingTop="10sp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/loginbtn"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/akaya_telivigala"
         android:text="add new question"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

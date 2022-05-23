@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:textColor="@color/black"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:text="NAME"/>
 
         <androidx.cardview.widget.CardView

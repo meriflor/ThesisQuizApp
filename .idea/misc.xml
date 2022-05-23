@@ -97,6 +97,36 @@
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/fragment_classes__student.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/camel/AndroidStudioProjects/ThesisQuizAppqwerty/app/src/main/res/layout/fragment_student_quiz.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout-sw320dp/activity_registration.xml" value="0.22359982898674646" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_homepage.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_intro_page.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_registration.xml" value="1.8678571428571429" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_score.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_sign_in.xml" value="0.67" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_student_class_room.xml" value="0.22359982898674646" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_student_list.xml" value="0.22359982898674646" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_student_questions.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_student_result.xml" value="1.8678571428571429" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_student_score.xml" value="0.22359982898674646" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_teacher_class_room.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/activity_teacher_create_question.xml" value="0.33" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/class_item.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/dialog_delete.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/fragment_classes__student.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/fragment_classes_teacher.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/fragment_home.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/fragment_profile.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/loading.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/nav_header.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/pop_up_window_create.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/pop_up_window_create_quiz.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/pop_up_window_join.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/popup_window_create_question.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/question_item.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/quiz_item.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/student_class_item.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/student_item.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/vcaes/StudioProjects/Finaldefence/app/src/main/res/layout/student_score_item.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.227" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable/assignment_logo.xml" value="0.227" />
         <entry key="..\:/Users/vcaes/StudioProjects/ThesisQuizApp12345/app/src/main/res/drawable/fab_label_background.xml" value="0.227" />

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Question name"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textColor="@color/black" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Option A"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/black" />
+            android:textColor="@color/gray" />
         <TextView
             android:id="@+id/tv_optionB"
             android:layout_marginTop="10dp"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Option B"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/black" />
+            android:textColor="@color/gray" />
         <TextView
             android:id="@+id/tv_optionC"
             android:layout_marginTop="10dp"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:text="Option C"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/black" />
+            android:textColor="@color/gray" />
         <TextView
             android:id="@+id/tv_optionD"
             android:layout_marginTop="10dp"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Option D"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/black" />
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/tv_answer"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="Answer: "
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-            android:textColor="@color/black" />
+            android:textColor="@color/green" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -85,8 +85,8 @@
                 android:layout_marginRight="20dp"
                 android:text="Edit"
                 android:textColor="#636e72"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textStyle="normal"
 
                 />
 
@@ -96,8 +96,8 @@
                 android:layout_height="wrap_content"
                 android:text="Delete"
                 android:textColor="#636e72"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textStyle="normal"
 
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
