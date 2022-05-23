@@ -237,7 +237,7 @@ public class DbQuery {
 
     }
 
-    public static void joinUpdateQuiz(String classID, String studentID, MyCompleteListener completeListener) {
+    public static void joinUpdateQuiz(String classID, String studentID, String studentName, MyCompleteListener completeListener) {
         CollectionReference ref = app_fireStore.collection("QUIZLIST");
         Query query = ref.whereEqualTo("classId", classID);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -254,6 +254,7 @@ public class DbQuery {
                         Map<String, Object> studQuizData = new HashMap<>();
                         studQuizData.put("classID", classID);
                         studQuizData.put("studentID", studentID);
+                        studQuizData.put("studentName", studentName);
                         studQuizData.put("teacherID", teacherID);
                         studQuizData.put("quizID", quizID);
                         studQuizData.put("quizName", quizName);

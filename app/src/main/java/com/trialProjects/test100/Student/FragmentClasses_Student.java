@@ -198,7 +198,7 @@ public class FragmentClasses_Student extends Fragment {
                         }
                     });
 
-                    DbQuery.joinUpdateQuiz(classID, studentID, new MyCompleteListener() {
+                    DbQuery.joinUpdateQuiz(classID, studentID, studentName, new MyCompleteListener() {
                         @Override
                         public void onSuccess() {
                             Log.d(TAG, "Quiz loaded successfully");
